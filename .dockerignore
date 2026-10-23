@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+.local
+.codex
+.agents
+.aws
+coverage
+*.log
+.env*
+*.pem
+*.key
+*.crt
+README.md
+DEPLOYMENT.md
+CONTENT_GUIDE.md
