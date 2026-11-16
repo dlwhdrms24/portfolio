@@ -21,11 +21,7 @@ export const projects: Project[] = [
       src: '/images/projects/medilens/screens/scan-analysis.png',
       alt: '약봉투 사진에서 복약 정보를 추출하는 MediLens 분석 진행 화면',
       caption: '약봉투 분석',
-    },
-    secondaryCover: {
-      src: '/images/projects/medilens/screens/login-desktop.png',
-      alt: '서비스 소개와 로그인 양식을 나란히 배치한 MediLens 데스크톱 화면',
-      caption: '데스크톱 로그인',
+      focus: 'center 85%',
     },
     spotlight: {
       description:

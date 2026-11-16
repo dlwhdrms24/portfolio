@@ -43,6 +43,8 @@ export interface ProjectImage {
   src: string
   alt: string
   caption?: string
+  /** 카드 표지에서 잘릴 때 남길 위치 (CSS object-position). 기본값은 위쪽 가운데. */
+  focus?: string
 }
 export interface ProjectFeature {
   title: string
@@ -78,7 +80,6 @@ export interface Project {
     relations: { from: string; to: string; reason: string }[]
   }
   cover?: ProjectImage
-  secondaryCover?: ProjectImage
   demoUrl?: string
   demoAccess?: { url: string; username: string; password: string }
   /** 팀 서비스와 분리해 배포한 개인 재구현 데모. 배포 검증 후 추가한다. */
