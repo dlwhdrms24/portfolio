@@ -3,13 +3,11 @@ import { ArrowUpRight, FolderOpen } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export function SectionHeading({
-  eyebrow,
   title,
   children,
   link,
   id,
 }: {
-  eyebrow?: string
   title: string
   id?: string
   children?: ReactNode
@@ -18,7 +16,6 @@ export function SectionHeading({
   return (
     <div className="section-heading">
       <div>
-        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
         <h2 id={id}>{title}</h2>
         {children && <p className="section-description">{children}</p>}
       </div>
@@ -47,7 +44,6 @@ export function EmptyState({
       </span>
       <h3>{title}</h3>
       <p>{description}</p>
-      <span className="empty-note">새로운 이야기가 이곳에 채워질 예정입니다.</span>
     </div>
   )
 }

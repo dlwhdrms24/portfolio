@@ -22,9 +22,11 @@ free -h
 
 운영 서버 빌드의 일시적 CPU·메모리 사용을 줄이려면 동일 소스로 개발 PC나 CI에서 이미지를 만듭니다. 서버 CPU 아키텍처에 맞춰 `linux/amd64` 또는 `linux/arm64`를 선택하세요.
 
-```sh
-npm ci
-npm run check
+Windows PowerShell에서 포트폴리오 폴더를 열고 아래 명령을 한 줄씩 실행합니다. `npm.cmd`를 호출하면 PowerShell 실행 정책을 바꾸지 않고 npm을 사용할 수 있습니다. Linux나 macOS의 셸에서는 `npm.cmd` 대신 `npm`을 사용합니다.
+
+```powershell
+npm.cmd ci
+npm.cmd run check
 docker buildx build --platform linux/amd64 --load -t developer-portfolio:release-001 .
 docker save -o portfolio-release-001.tar developer-portfolio:release-001
 ```
@@ -113,7 +115,56 @@ curl -I https://jong.3geun.com/projects
 openssl s_client -connect jong.3geun.com:443 -servername jong.3geun.com -verify_hostname jong.3geun.com -verify_return_error </dev/null
 ```
 
+## 월페이퍼 스튜디오 배포
+
+홈과 프로젝트 목록에서 Bing Wallpaper Downloader 카드를 누르면 `/bing-wallpaper/`로 바로 이동합니다. 데모 컨테이너와 프록시를 먼저 연결한 뒤 포트폴리오 이미지를 배포하세요.
+
+### 호스트에서 Nginx를 실행하는 경우
+
+서버에 `bing-wallpaper/` 폴더를 배포하고, 그 폴더에서 아래 명령을 실행합니다. 호스트 포트 `14179`가 이미 사용 중이면 `WALLPAPER_PORT`를 다른 포트로 지정하고 Nginx upstream에도 같은 값을 사용하세요.
+
+```sh
+docker compose config
+docker compose up -d --build
+docker compose ps
+curl -fsS -o /dev/null http://127.0.0.1:14179/bing-wallpaper/
+curl -fsS http://127.0.0.1:14179/bing-wallpaper/api/wallpaper
+```
+
+기존 `jong.3geun.com` HTTPS server block에 아래 두 `location`을 추가합니다. `proxy_pass`의 포트 뒤에 `/`를 붙이지 않아 `/bing-wallpaper/` 경로를 컨테이너까지 전달합니다.
+
+```nginx
+location = /bing-wallpaper {
+    return 308 /bing-wallpaper/$is_args$args;
+}
+
+location ^~ /bing-wallpaper/ {
+    proxy_pass http://127.0.0.1:14179;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+`sudo nginx -t`가 성공하면 `sudo systemctl reload nginx`로 반영합니다.
+
+### Docker에서 Nginx를 실행하는 경우
+
+`bing-wallpaper/` 폴더에 기존 프록시 네트워크의 이름을 `PROXY_NETWORK`로 지정하고 Compose v2.24.4 이상에서 아래 명령을 실행합니다. 같은 네트워크에 연결된 HTTPS 프록시에 위 두 `location`을 추가하되, `proxy_pass`를 `http://bing-wallpaper:4179`로 지정합니다. 프록시 컨테이너에서 `nginx -t`를 실행한 뒤 설정을 다시 읽힙니다.
+
+```sh
+docker compose -f docker-compose.yml -f docker-compose.proxy.yml config
+docker compose -f docker-compose.yml -f docker-compose.proxy.yml up -d --build
+```
+
+배포 후 포트폴리오의 홈이나 프로젝트 목록에서 Bing Wallpaper Downloader 카드를 눌러 **오늘의 사진 → JPG 다운로드**까지 확인합니다. 오늘의 사진 조회와 JPG 저장을 하려면 데모 컨테이너에서 `www.bing.com`으로 HTTPS 연결이 가능해야 합니다.
+
 HTTP는 HTTPS로 리다이렉트되어야 하고 인증서는 호스트명과 일치해야 합니다. 브라우저에서 직접 하위 주소를 열어 새로고침, 키보드 이동, 모바일 메뉴, 라이트·다크 전환, 테마 유지, 이미지와 PDF를 확인합니다. 최소 320px 모바일·태블릿·데스크톱, Reduced Motion에서도 검토하세요. DNS·인증서·프록시 변경이 필요한 경우 실제 구성과 원인을 확인한 뒤 별도 검토합니다.
+
+## MediLens 체험 데모 배포
+
+`/medilens-demo/`는 기존 팀 서비스·운영 DB와 분리된 별도 Compose 프로젝트(`medilens-demo`)로 실행합니다. 방문자 업로드는 받지 않고, 개인정보를 가린 예시 약봉투 사진을 개발 PC에서 미리 분석한 결과를 빌드에 포함합니다. 그래서 기본 운영은 키 없이 프런트엔드(`web`, `127.0.0.1:18090`)만 실행하며, 서버에 OpenAI 키를 두지 않습니다. 실시간 의약품 검색은 공공데이터 키를 발급하고 테스트를 통과한 뒤 `api` 프로필(`127.0.0.1:18091`)로 켭니다. 빌드·실행 명령, 키 설정, 호스트 Nginx location 예시(`nginx-host-locations.conf`)와 배포 후 확인 항목은 별도 저장소 **medilens-demo**의 README를 따르세요. 배포를 검증한 뒤에만 포트폴리오의 MediLens 상세에 체험 링크(`personalDemo`)를 추가합니다.
 
 ## 6. 업데이트와 롤백
 

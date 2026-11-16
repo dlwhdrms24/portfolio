@@ -11,7 +11,6 @@ export function Skills({ compact = false }: { compact?: boolean }) {
       <div className="block-heading">
         <Layers3 size={19} aria-hidden="true" />
         <Heading>기술 스택</Heading>
-        <span>Technical skills</span>
       </div>
       {skills.some((category) => category.skills.length) ? (
         <div className="skill-categories">
@@ -42,7 +41,6 @@ export function Experiences({ compact = false }: { compact?: boolean }) {
       <div className="block-heading">
         <BriefcaseBusiness size={19} aria-hidden="true" />
         <Heading>경험</Heading>
-        <span>Experience</span>
       </div>
       {entries.length ? (
         <ol className="timeline">
@@ -73,14 +71,13 @@ export function Education({ compact = false }: { compact?: boolean }) {
       <div className="block-heading">
         <GraduationCap size={20} aria-hidden="true" />
         <Heading>{compact ? '학력 · 자격증' : '학력'}</Heading>
-        <span>Education</span>
       </div>
       {resume.education.length ? (
         resume.education.map((entry) => (
           <div className="resume-entry" key={entry.id}>
             <p className="entry-period">{entry.period}</p>
             <ItemHeading>{entry.institution}</ItemHeading>
-            <p>{entry.course}</p>
+            {entry.course && <p>{entry.course}</p>}
             {entry.description && <p className="muted">{entry.description}</p>}
           </div>
         ))
@@ -91,9 +88,7 @@ export function Education({ compact = false }: { compact?: boolean }) {
         resume.certifications.map((entry) => (
           <div className="resume-entry" key={entry.id}>
             <h4>{entry.name}</h4>
-            <p className="muted">
-              {entry.issuer} · {entry.date}
-            </p>
+            <p className="muted">{[entry.issuer, entry.date].filter(Boolean).join(' · ')}</p>
           </div>
         ))}
     </div>
@@ -105,15 +100,12 @@ export function Certifications() {
       <div className="block-heading">
         <Award size={19} aria-hidden="true" />
         <h2>자격증</h2>
-        <span>Certifications</span>
       </div>
       {resume.certifications.length ? (
         resume.certifications.map((entry) => (
           <div className="resume-entry" key={entry.id}>
             <h3>{entry.name}</h3>
-            <p className="muted">
-              {entry.issuer} · {entry.date}
-            </p>
+            <p className="muted">{[entry.issuer, entry.date].filter(Boolean).join(' · ')}</p>
           </div>
         ))
       ) : (

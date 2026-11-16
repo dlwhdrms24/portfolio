@@ -47,14 +47,34 @@ const project: Project = {
   retrospective: { learned: ['배운 점 검증'], improvements: ['개선 검증'] },
   links: [{ label: '테스트 문서', type: 'documentation', url: 'https://example.com' }],
 }
+const publishedProjects = [...projects]
+const publishedProfile = { ...profile }
+const publishedSkills = [...skills]
+const publishedEducation = [...resume.education]
+const publishedCertifications = [...resume.certifications]
 
 describe('빈 콘텐츠와 라우팅', () => {
-  it('개인정보 없이 홈을 렌더링하고 비어 있는 링크를 숨긴다', () => {
+  it('프로필과 사진을 렌더링하고 비어 있는 링크를 숨긴다', () => {
     visit()
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('이름을 입력해 주세요')
-    expect(screen.getByRole('heading', { name: '프로젝트를 준비 중입니다.' })).toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: /GitHub/ })).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('이종근')
+    expect(screen.getByRole('img', { name: '이종근 프로필 사진' })).toHaveAttribute(
+      'src',
+      '/images/profile.jpg',
+    )
+    expect(screen.getAllByRole('link', { name: /GitHub/ })[0]).toHaveAttribute(
+      'href',
+      profile.github,
+    )
     expect(screen.queryByRole('link', { name: /PDF/ })).not.toBeInTheDocument()
+  })
+  it('프로젝트가 비어 있으면 준비 중 안내를 표시한다', () => {
+    const saved = projects.splice(0)
+    try {
+      visit()
+      expect(screen.getByRole('heading', { name: '프로젝트를 준비 중입니다.' })).toBeInTheDocument()
+    } finally {
+      projects.push(...saved)
+    }
   })
   it.each(['/resume', '/projects', '/projects/unknown', '/missing'])(
     '%s에 직접 진입할 수 있다',
@@ -62,7 +82,7 @@ describe('빈 콘텐츠와 라우팅', () => {
       visit(path)
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
         path === '/resume'
-          ? '경험을 연결하다'
+          ? '이종근의 이력서'
           : path === '/projects'
             ? '코드로 풀어낸 이야기'
             : '페이지를 찾을 수 없습니다.',
@@ -81,7 +101,7 @@ describe('빈 콘텐츠와 라우팅', () => {
         name: 'Resume',
       }),
     )
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('경험을 연결하다')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('이종근의 이력서')
     expect(screen.getByRole('link', { name: 'Resume' })).toHaveAttribute('aria-current', 'page')
     expect(document.title).toContain('Resume')
     expect(screen.getByRole('main')).toHaveFocus()
@@ -137,16 +157,44 @@ describe('테마', () => {
 
 describe('콘텐츠 데이터 연동', () => {
   afterEach(() => {
-    projects.length = 0
-    skills.length = 0
+    projects.splice(0, projects.length, ...publishedProjects)
+    skills.splice(0, skills.length, ...publishedSkills)
     resume.experiences.length = 0
-    resume.education.length = 0
-    resume.certifications.length = 0
-    profile.name = ''
-    profile.about = []
+    resume.education.splice(0, resume.education.length, ...publishedEducation)
+    resume.certifications.splice(0, resume.certifications.length, ...publishedCertifications)
     delete profile.github
     delete profile.email
     delete profile.resumePdf
+    Object.assign(profile, publishedProfile)
+  })
+  it('홈에서 MediLens를 먼저 표시하고 서버·DB 상세로 연결한다', async () => {
+    visit()
+    const cards = screen.getAllByRole('article')
+    const medilens = within(cards[0]).getByRole('link', { name: 'MediLens' })
+    expect(within(cards[1]).getByRole('link', { name: 'Create Problem AI' })).toBeInTheDocument()
+    await userEvent.click(medilens)
+    expect(screen.getByRole('heading', { name: '서버·DB 개발' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '핵심 데이터 관계' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '팀 프로젝트 주요 기능' })).toBeInTheDocument()
+  })
+  it('개인 재구현 데모가 있으면 상세 상단에 체험 링크를 표시한다', () => {
+    const medilens = projects.find((item) => item.slug === 'medilens')!
+    const original = medilens.personalDemo
+    medilens.personalDemo = {
+      url: 'https://jong.3geun.com/medilens-demo/',
+      description: '팀 서비스와 분리한 개인 재구현 데모',
+    }
+    try {
+      visit('/projects/medilens')
+      const section = screen.getByRole('region', { name: '로그인 없이 체험하기' })
+      expect(within(section).getByText('개인 재구현')).toBeInTheDocument()
+      expect(within(section).getByRole('link', { name: /체험 데모 열기/ })).toHaveAttribute(
+        'href',
+        'https://jong.3geun.com/medilens-demo/',
+      )
+    } finally {
+      medilens.personalDemo = original
+    }
   })
   it('프로젝트 데이터로 카드와 상세 페이지 전체를 생성한다', async () => {
     projects.push(project)
@@ -186,13 +234,6 @@ describe('콘텐츠 데이터 연동', () => {
       resumePdf: '/resume.pdf',
     })
     skills.push({ name: '테스트 분류', skills: ['테스트 기술'] })
-    resume.experiences.push({
-      id: 'test',
-      title: '테스트 경험',
-      organization: '테스트 기관',
-      period: '테스트 기간',
-      descriptions: ['테스트 설명'],
-    })
     resume.education.push({
       id: 'test',
       institution: '테스트 교육',
@@ -211,7 +252,6 @@ describe('콘텐츠 데이터 연동', () => {
       '테스트 소개 문단',
       '테스트 분류',
       '테스트 기술',
-      '테스트 경험',
       '테스트 교육',
       '테스트 자격',
     ])

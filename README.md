@@ -4,6 +4,44 @@
 
 React 19, TypeScript 6, Vite 8, Tailwind CSS 4, React Router 7, Lucide React를 사용합니다. 테스트는 Vitest·React Testing Library, 운영은 Nginx 정적 파일 + Docker Compose입니다. 설치 버전은 `package.json`에 고정하고 `package-lock.json`으로 재현합니다. Node.js 22.12 이상이 필요합니다. Node 요구사항과 Tailwind 설정은 [Vite 공식 문서](https://vite.dev/guide/)와 [Tailwind 공식 문서](https://tailwindcss.com/docs/installation/using-vite)를 확인했습니다.
 
+## 아키텍처
+
+`jong.3geun.com` 한 도메인 아래에서 세 개의 독립 앱이 경로별로 서비스됩니다. 각 앱은 별도 저장소·별도 Docker Compose 프로젝트로 관리하며, 호스트 Nginx가 기존 HTTPS 인증서로 TLS를 종료한 뒤 경로에 따라 루프백 포트로 전달합니다.
+
+```mermaid
+flowchart LR
+    U["방문자 브라우저"] -->|HTTPS| N["호스트 Nginx<br/>jong.3geun.com"]
+    N -->|"/"| P["포트폴리오 (이 저장소)<br/>Nginx 정적 파일<br/>127.0.0.1:18080"]
+    N -->|"/bing-wallpaper/"| W["월페이퍼 스튜디오<br/>Node 프록시 서버<br/>127.0.0.1:14179"]
+    N -->|"/medilens-demo/"| M["MediLens 체험 데모<br/>Nginx 정적 파일<br/>127.0.0.1:18090"]
+    W --> BING[("www.bing.com")]
+    P -. "프로젝트 상세에서 링크" .-> W
+    P -. "프로젝트 상세에서 링크" .-> M
+```
+
+| 저장소                    | 내용                                                                                        | 경로               |
+| ------------------------- | ------------------------------------------------------------------------------------------- | ------------------ |
+| **portfolio** (이 저장소) | 자기소개·이력서·프로젝트 소개 사이트                                                        | `/`                |
+| **bing-wallpaper-studio** | Bing 배경화면을 해상도별 JPG로 저장하는 도구                                                | `/bing-wallpaper/` |
+| **medilens-demo**         | 팀 프로젝트 MediLens의 약봉투 인식 → 복약 일정 흐름을 로그인 없이 체험하는 개인 재구현 데모 | `/medilens-demo/`  |
+
+포트폴리오 자체는 **빌드 시 사전 렌더링한 정적 사이트**입니다. 런타임에 API·DB·Node 프로세스가 없습니다.
+
+```mermaid
+flowchart LR
+    D["src/data/*.ts<br/>프로필·기술·이력·프로젝트"] --> R["React 컴포넌트"]
+    R --> V["vite build<br/>클라이언트 번들"]
+    R --> G["scripts/generate-static.mjs<br/>페이지별 HTML 사전 렌더링<br/>메타데이터·sitemap·robots"]
+    V --> X["dist/"]
+    G --> X
+    X --> C["scripts/verify-static.mjs<br/>본문·메타 검증"]
+    X --> NG["Docker: 비루트 Nginx<br/>캐시·gzip·보안 헤더·404"]
+```
+
+- **데이터 주도**: 화면 문구는 `src/data/`의 타입이 정의된 객체에서만 읽습니다. 프로젝트를 추가하면 카드·상세 페이지·사이트맵이 함께 생성됩니다.
+- **SEO**: 각 페이지의 초기 HTML에 본문과 제목·설명·canonical·Open Graph를 포함해 자바스크립트를 실행하지 않는 크롤러도 내용을 읽을 수 있습니다. 클라이언트 이동 시에는 React Router로 전환하고 메타데이터를 갱신합니다.
+- **테마**: 시스템 설정을 따르는 라이트·다크 모드와 수동 전환을 지원하며, 깜빡임 없이 초기 테마를 적용합니다.
+
 ## 시작
 
 ```sh
@@ -78,7 +116,7 @@ curl -f http://127.0.0.1:18080/healthz
 
 ## 운영 및 검증 상태
 
-- 자동 검증: 타입 검사, ESLint, 12개 컴포넌트·라우팅 테스트, 정적 HTML 생성 포함 프로덕션 빌드 통과.
+- 자동 검증: 타입 검사, ESLint, 15개 컴포넌트·라우팅 테스트, 정적 HTML 생성 포함 프로덕션 빌드 통과.
 - 생성된 정적 HTML 4개의 본문·페이지 메타데이터·사이트맵을 빌드 과정에서 추가 검증합니다.
 - 로컬 브라우저 확인: 320px 홈·이력서·프로젝트 화면의 가로 넘침 없음, 768px 홈, 1280px 홈·이력서, 모바일 메뉴 이동 후 닫힘, 다크 모드 및 새로고침 후 유지, 하위 경로 새로고침, 없는 프로젝트 404 화면을 확인했습니다. 확인 과정의 콘솔 경고·오류는 없었습니다. 등록 프로젝트 상세는 테스트 데이터로 컴포넌트 검증했습니다.
 - 번들 최초 측정: JavaScript 약 290 kB / gzip 91 kB, CSS 약 26 kB / gzip 6 kB. 변경 시 빌드 출력으로 다시 확인하세요.

@@ -3,8 +3,10 @@ export interface Profile {
   role: string
   introduction: string
   about: string[]
+  photo?: string
   github?: string
   email?: string
+  phone?: string
   location?: string
   resumePdf?: string
 }
@@ -22,14 +24,14 @@ export interface Experience {
 export interface Education {
   id: string
   institution: string
-  course: string
+  course?: string
   period: string
   description?: string
 }
 export interface Certification {
   id: string
   name: string
-  issuer: string
+  issuer?: string
   date: string
 }
 export interface Resume {
@@ -70,7 +72,22 @@ export interface Project {
   purpose: string
   technologies: string[]
   featured: boolean
+  spotlight?: {
+    description: string
+    topics: ProjectFeature[]
+    relations: { from: string; to: string; reason: string }[]
+  }
   cover?: ProjectImage
+  secondaryCover?: ProjectImage
+  demoUrl?: string
+  demoAccess?: { url: string; username: string; password: string }
+  /** 팀 서비스와 분리해 배포한 개인 재구현 데모. 배포 검증 후 추가한다. */
+  personalDemo?: { url: string; description: string }
+  demoVideo?: { src: string; poster: string; description: string }
+  screenshots?: ProjectImage[]
+  screenshotsTitle?: string
+  screenshotsNote?: string
+  integrations?: ProjectFeature[]
   features: ProjectFeature[]
   architecture?: { description: string; image?: ProjectImage; dataFlow?: string[] }
   problems: ProjectProblem[]

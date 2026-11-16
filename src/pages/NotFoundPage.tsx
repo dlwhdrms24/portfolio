@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 export function NotFoundPage() {
   return (
     <div className="container not-found">
-      <p className="eyebrow">PAGE NOT FOUND</p>
       <p className="error-number" aria-hidden="true">
         404<span>_</span>
       </p>

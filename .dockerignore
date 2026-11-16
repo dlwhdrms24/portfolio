@@ -2,6 +2,11 @@ node_modules
 dist
 .git
 .local
+projectWorks
+bing-wallpaper
+medilens
+medilens-demo
+portfolio-server-deploy.*
 .codex
 .agents
 .aws

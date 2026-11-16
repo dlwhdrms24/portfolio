@@ -23,9 +23,6 @@ function Header() {
           <span className="brand-icon">
             <CodeXml size={21} aria-hidden="true" />
           </span>
-          <span>
-            dev<span className="brand-dot">.</span>portfolio
-          </span>
         </Link>
         <nav aria-label="주 메뉴" className="desktop-nav">
           {navigation.map((item) => (
@@ -129,9 +126,8 @@ export function Layout() {
       <footer className="site-footer">
         <div className="container footer-inner">
           <div>
-            <Link to="/" className="footer-brand">
+            <Link to="/" className="footer-brand" aria-label="포트폴리오 홈">
               <CodeXml size={17} aria-hidden="true" />
-              dev.portfolio
             </Link>
             <p>
               © {new Date().getFullYear()} {profile.name || 'Developer Portfolio'}. All rights
@@ -139,6 +135,7 @@ export function Layout() {
             </p>
           </div>
           <div className="footer-links">
+            {profile.phone && <a href={`tel:${profile.phone}`}>{profile.phone}</a>}
             {profile.github && <ExternalLink href={profile.github}>GitHub</ExternalLink>}
             {profile.email && (
               <a href={`mailto:${profile.email}`}>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 630">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#a9cee9" stroke-width="1.7"/>
+    </marker>
+  </defs>
+  <rect width="720" height="630" rx="18" fill="#142843"/>
+  <g font-family="system-ui,sans-serif" fill="#f1f7ff">
+    <text x="36" y="52" font-size="26" font-weight="700">MediLens · 배포 아키텍처</text>
+    <rect x="36" y="82" width="234" height="68" rx="11" fill="#233f60" stroke="#587fa1"/>
+    <rect x="450" y="82" width="234" height="68" rx="11" fill="#47374a" stroke="#d69e73"/>
+    <g text-anchor="middle" font-size="22" font-weight="600">
+      <text x="153" y="124">사용자 브라우저</text>
+      <text x="567" y="124">Cloudflare DNS</text>
+    </g>
+    <path d="M270 117h180" fill="none" stroke="#a9cee9" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+    <text x="360" y="105" text-anchor="middle" font-size="17" fill="#c4daeb">도메인 조회</text>
+    <rect x="24" y="212" width="672" height="270" rx="16" fill="#182f4c" stroke="#587fa1"/>
+    <text x="52" y="249" font-size="23" font-weight="700">Oracle Cloud 서버</text>
+    <rect x="48" y="266" width="624" height="190" rx="12" fill="#193753" stroke="#7fb9db" stroke-dasharray="6 5"/>
+    <text x="68" y="302" font-size="19" font-weight="600" fill="#bce4f5">Docker 컨테이너</text>
+    <g fill="#234564" stroke="#6893b5">
+      <rect x="66" y="331" width="174" height="91" rx="10"/>
+      <rect x="273" y="331" width="174" height="91" rx="10"/>
+      <rect x="480" y="331" width="174" height="91" rx="10"/>
+    </g>
+    <g text-anchor="middle" font-size="21" font-weight="650">
+      <text x="153" y="370">React / Vite</text>
+      <text x="360" y="370">FastAPI</text>
+      <text x="567" y="370">PostgreSQL</text>
+    </g>
+    <g text-anchor="middle" font-size="17" fill="#c4daeb">
+      <text x="153" y="397">화면 제공</text>
+      <text x="360" y="397">백엔드 API</text>
+      <text x="567" y="397">데이터 저장</text>
+    </g>
+    <g fill="none" stroke="#a9cee9" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M153 150v62"/>
+      <path d="M240 376h33"/>
+      <path d="M447 376h33"/>
+      <path d="M360 422v91H190v34"/>
+      <path d="M360 422v91h170v34"/>
+    </g>
+    <text x="168" y="187" font-size="17" fill="#c4daeb">웹 접속</text>
+    <g fill="#263f60" stroke="#587fa1">
+      <rect x="36" y="548" width="308" height="55" rx="10"/>
+      <rect x="376" y="548" width="308" height="55" rx="10"/>
+    </g>
+    <g text-anchor="middle" font-size="21" font-weight="600">
+      <text x="190" y="583">GPT-4o Vision</text>
+      <text x="530" y="583">식약처 공공데이터 API</text>
+    </g>
+  </g>
+</svg>

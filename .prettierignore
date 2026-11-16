@@ -1,5 +1,8 @@
 node_modules
 dist
 .local
+projectWorks
 coverage
 package-lock.json
+medilens-demo
+bing-wallpaper

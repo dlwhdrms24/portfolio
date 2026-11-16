@@ -25,18 +25,60 @@ export function ProjectDetailPage() {
       </Link>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">PROJECT / {project.type}</p>
           <h1>
             {project.name}
             <span className="accent">.</span>
           </h1>
           <p>{project.summary}</p>
         </div>
+        {project.demoUrl && (
+          <a href={project.demoUrl} className="button primary">
+            직접 써보기 <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        )}
       </div>
+      {project.personalDemo && (
+        <section className="project-personal-demo" aria-labelledby="project-personal-demo-title">
+          <div>
+            <p className="eyebrow">개인 재구현</p>
+            <h2 id="project-personal-demo-title">로그인 없이 체험하기</h2>
+            <p>{project.personalDemo.description}</p>
+          </div>
+          <a href={project.personalDemo.url} className="button primary">
+            체험 데모 열기 <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </section>
+      )}
+      {project.demoAccess && (
+        <section className="project-demo-access" aria-labelledby="project-demo-access-title">
+          <div>
+            <h2 id="project-demo-access-title">서비스 체험</h2>
+            <ExternalLink href={project.demoAccess.url} className="button primary">
+              {project.name} 바로가기
+            </ExternalLink>
+          </div>
+          <dl aria-label="테스트 계정">
+            <div>
+              <dt>테스트 ID</dt>
+              <dd>
+                <code>{project.demoAccess.username}</code>
+              </dd>
+            </div>
+            <div>
+              <dt>비밀번호</dt>
+              <dd>
+                <code>{project.demoAccess.password}</code>
+              </dd>
+            </div>
+          </dl>
+        </section>
+      )}
       <div className="project-facts">
         <div>
           <span>개발 기간</span>
-          <strong>{project.period}</strong>
+          <strong>
+            {project.period} · {project.type}
+          </strong>
         </div>
         <div>
           <span>담당 역할</span>
@@ -53,14 +95,94 @@ export function ProjectDetailPage() {
           <Tags items={project.technologies} />
         </div>
       </div>
-      {project.cover && <Figure image={project.cover} />}
+      {project.spotlight && (
+        <section className="project-spotlight">
+          <SectionHeading title="서버·DB 개발" />
+          <p className="prose">{project.spotlight.description}</p>
+          <div className="spotlight-topics">
+            {project.spotlight.topics.map((topic) => (
+              <article key={topic.title}>
+                <h3>{topic.title}</h3>
+                <p className="prose">{topic.description}</p>
+              </article>
+            ))}
+          </div>
+          <h3>핵심 데이터 관계</h3>
+          <ul className="project-relations">
+            {project.spotlight.relations.map(({ from, to, reason }) => (
+              <li key={`${from}-${to}`}>
+                <strong>
+                  {from} → {to}
+                </strong>
+                <span>{reason}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+      {project.cover &&
+        !project.spotlight &&
+        project.cover.src !== project.architecture?.image?.src && <Figure image={project.cover} />}
       <section>
-        <SectionHeading eyebrow="01 / OVERVIEW" title="프로젝트 소개" />
+        <SectionHeading title="프로젝트 소개" />
         <p className="prose">{project.purpose}</p>
       </section>
+      {project.demoVideo && (
+        <section aria-labelledby="project-demo-title">
+          <SectionHeading id="project-demo-title" title="실행 영상">
+            {project.demoVideo.description}
+          </SectionHeading>
+          <video
+            className="project-demo-video"
+            controls
+            playsInline
+            preload="none"
+            poster={project.demoVideo.poster}
+            aria-labelledby="project-demo-title"
+          >
+            <source src={project.demoVideo.src} type="video/mp4" />
+            <a href={project.demoVideo.src}>실행 영상 열기</a>
+          </video>
+        </section>
+      )}
+      {project.screenshots && project.screenshots.length > 0 && (
+        <section>
+          <SectionHeading title={project.screenshotsTitle ?? '실제 서비스 화면'}>
+            {project.screenshotsNote}
+          </SectionHeading>
+          <div className="project-screenshots">
+            {project.screenshots.map((screen) => (
+              <figure key={screen.src}>
+                <a
+                  href={screen.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${screen.caption ?? screen.alt} 원본 이미지 열기 (새 탭)`}
+                >
+                  <img src={screen.src} alt={screen.alt} loading="lazy" />
+                </a>
+                {screen.caption && <figcaption>{screen.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+      {project.integrations && project.integrations.length > 0 && (
+        <section>
+          <SectionHeading title="API 연동" />
+          <div className="feature-list">
+            {project.integrations.map(({ title, description }) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p className="prose">{description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       {project.features.length > 0 && (
         <section>
-          <SectionHeading eyebrow="02 / FEATURES" title="주요 기능" />
+          <SectionHeading title={project.spotlight ? '팀 프로젝트 주요 기능' : '주요 기능'} />
           <div className="feature-list">
             {project.features.map((feature) => (
               <article key={feature.title}>
@@ -74,9 +196,13 @@ export function ProjectDetailPage() {
       )}
       {project.architecture && (
         <section>
-          <SectionHeading eyebrow="03 / ARCHITECTURE" title="시스템 아키텍처" />
+          <SectionHeading title="시스템 아키텍처" />
           <p className="prose">{project.architecture.description}</p>
-          {project.architecture.image && <Figure image={project.architecture.image} />}
+          {project.architecture.image ? (
+            <Figure image={project.architecture.image} />
+          ) : (
+            project.spotlight && project.cover && <Figure image={project.cover} />
+          )}
           {project.architecture.dataFlow && (
             <ol className="body-list">
               {project.architecture.dataFlow.map((step) => (
@@ -88,7 +214,7 @@ export function ProjectDetailPage() {
       )}
       {project.problems.length > 0 && (
         <section>
-          <SectionHeading eyebrow="04 / PROBLEM SOLVING" title="문제 해결 과정" />
+          <SectionHeading title="문제 해결 과정" />
           {project.problems.map((problem) => (
             <article className="problem-card" key={problem.title}>
               <h3>{problem.title}</h3>
@@ -111,7 +237,7 @@ export function ProjectDetailPage() {
       )}
       {project.retrospective && (
         <section>
-          <SectionHeading eyebrow="05 / RETROSPECTIVE" title="배운 점과 다음 과제" />
+          <SectionHeading title="배운 점과 다음 과제" />
           {project.retrospective.learned.length > 0 && (
             <>
               <h3>배운 점</h3>
@@ -136,7 +262,7 @@ export function ProjectDetailPage() {
       )}
       {project.links.length > 0 && (
         <section>
-          <SectionHeading eyebrow="06 / LINKS" title="프로젝트 링크" />
+          <SectionHeading title="프로젝트 링크" />
           <div className="contact-links">
             {project.links.map((link) => (
               <ExternalLink key={link.url} href={link.url}>

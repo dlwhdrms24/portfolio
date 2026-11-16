@@ -7,7 +7,6 @@ export function ProjectsPage() {
     <div className="container inner-page">
       <div className="page-heading">
         <div>
-          <p className="eyebrow">PROJECTS / 프로젝트</p>
           <h1>
             코드로 풀어낸 이야기<span className="accent">.</span>
           </h1>
@@ -18,7 +17,6 @@ export function ProjectsPage() {
         <h2>
           전체 프로젝트 <span>{String(projects.length).padStart(2, '0')}</span>
         </h2>
-        <span>아이디어부터 구현까지</span>
       </div>
       {projects.length ? (
         <div className="project-grid">
@@ -32,10 +30,6 @@ export function ProjectsPage() {
           description="프로젝트의 구현 기능과 기술적 고민을 곧 이곳에서 소개합니다."
         />
       )}
-      <div className="projects-footnote">
-        <span className="tiny-square" />각 프로젝트의 상세 페이지에서 구현 과정과 배운 점을 확인할
-        수 있습니다.
-      </div>
     </div>
   )
 }

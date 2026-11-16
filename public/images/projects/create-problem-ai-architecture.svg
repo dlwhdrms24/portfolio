@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 630">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#d0c3fb" stroke-width="1.7"/>
+    </marker>
+  </defs>
+  <rect width="720" height="630" rx="18" fill="#292649"/>
+  <g font-family="system-ui,sans-serif" fill="#f8f5ff">
+    <text x="36" y="52" font-size="27" font-weight="700">Create Problem AI · 시스템 구조</text>
+    <rect x="24" y="79" width="389" height="486" rx="15" fill="#302b50" stroke="#8978bc"/>
+    <text x="50" y="119" font-size="23" font-weight="700">브라우저 · React Router</text>
+    <g fill="#403660" stroke="#8c7cb5">
+      <rect x="50" y="143" width="337" height="71" rx="10"/>
+      <rect x="50" y="246" width="337" height="71" rx="10"/>
+      <rect x="50" y="349" width="337" height="71" rx="10"/>
+      <rect x="50" y="452" width="337" height="81" rx="10"/>
+      <rect x="474" y="143" width="221" height="71" rx="10"/>
+      <rect x="474" y="349" width="221" height="71" rx="10"/>
+      <rect x="474" y="452" width="221" height="81" rx="10"/>
+    </g>
+    <g font-size="21" font-weight="650">
+      <text x="70" y="172">01 · AI 문제 생성</text>
+      <text x="70" y="275">02 · 문제 목록</text>
+      <text x="70" y="378">03 · 코드 편집기</text>
+      <text x="70" y="483">04 · 테스트 결과</text>
+      <text x="494" y="172">Gemini API</text>
+      <text x="494" y="378">Vite 개발 프록시</text>
+      <text x="494" y="483">JDoodle API</text>
+    </g>
+    <g fill="#ded4fc" font-size="17">
+      <text x="70" y="196">프롬프트 입력 · JSON 응답 파싱</text>
+      <text x="70" y="299">React Context · 메모리 상태</text>
+      <text x="70" y="402">코드 작성 · 첫 테스트 입력으로 실행</text>
+      <text x="70" y="507">테스트별 실행 출력과 기대 출력 비교</text>
+      <text x="494" y="196">문제·테스트·참고 코드</text>
+      <text x="494" y="402">실행 요청 전달</text>
+      <text x="494" y="507">코드 실행 · 출력 반환</text>
+    </g>
+    <g fill="none" stroke="#d0c3fb" stroke-width="2" marker-end="url(#arrow)">
+      <path d="M218 214v31"/>
+      <path d="M218 317v31"/>
+      <path d="M218 420v31"/>
+      <path d="M388 178h85"/>
+      <path d="M388 384h85"/>
+      <path d="M388 490h45v-86h40"/>
+      <path d="M583 420v31"/>
+    </g>
+    <text x="36" y="603" fill="#ded4fc" font-size="17">별도 백엔드·영구 DB 없음 · 실행 결과는 브라우저에서 비교</text>
+  </g>
+</svg>
