@@ -12,16 +12,16 @@ coverage/
 .local/
 projectWorks/
 # 원본 팀 저장소 압축본에는 환경 설정 파일이 포함되어 있어 커밋하지 않는다.
-medilens/
+/medilens/
 __pycache__/
 .pytest_cache/
 .venv/
 # 예시 약봉투 원본 사진(공개용 사본만 web/public/samples/photos에 커밋)
-medilens-demo/sample-photos/*
-!medilens-demo/sample-photos/README.md
+/medilens-demo/sample-photos/*
+!/medilens-demo/sample-photos/README.md
 # 별도 저장소로 관리하는 앱 (medilens-demo, bing-wallpaper)
-medilens-demo/
-bing-wallpaper/
+/medilens-demo/
+/bing-wallpaper/
 # 서버 전달용 배포 묶음과 로컬 도구 설정
 portfolio-server-deploy.*
 .claude/
