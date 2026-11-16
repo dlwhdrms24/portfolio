@@ -944,11 +944,6 @@ main {
   font-size: 13px;
   font-weight: 700;
 }
-.project-screenshots {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 18px;
-}
 .project-demo-video {
   display: block;
   width: 100%;
@@ -1020,27 +1015,137 @@ main {
   margin: 0;
   overflow-wrap: anywhere;
 }
-.project-screenshots figure {
+.screenshot-carousel {
+  min-width: 0;
+}
+.screenshot-carousel-viewport {
+  position: relative;
+}
+.screenshot-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-radius: 10px;
+}
+.screenshot-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+.screenshot-carousel-track:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.screenshot-carousel-slide {
+  flex: 0 0 100%;
   min-width: 0;
   margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
-.project-screenshots a {
-  display: block;
+.screenshot-carousel-frame {
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #f5f7fa;
+  background: var(--soft);
   overflow: hidden;
 }
-.project-screenshots img {
+.screenshot-carousel-frame img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: clamp(240px, 56vw, 560px);
   object-fit: contain;
+  user-select: none;
 }
-.project-screenshots figcaption {
-  margin-top: 8px;
+.screenshot-carousel-slide figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+.screenshot-carousel-nav {
+  position: absolute;
+  top: calc(clamp(240px, 56vw, 560px) / 2);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 4px 14px rgb(15 23 42 / 0.12);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: opacity 0.15s ease;
+}
+.screenshot-carousel-nav.prev {
+  left: 10px;
+}
+.screenshot-carousel-nav.next {
+  right: 10px;
+}
+.screenshot-carousel-nav:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+.screenshot-carousel-nav:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.screenshot-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+.screenshot-carousel-count {
   color: var(--muted);
   font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.screenshot-carousel-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.screenshot-carousel-dots button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.screenshot-carousel-dots button::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--line);
+  transition: width 0.2s ease, background 0.2s ease;
+}
+.screenshot-carousel-dots button.active::before {
+  width: 20px;
+  background: var(--accent);
+}
+.screenshot-carousel-dots button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-radius: 6px;
+}
+@media (hover: none) {
+  .screenshot-carousel-nav {
+    width: 36px;
+    height: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .screenshot-carousel-dots button::before {
+    transition: none;
+  }
 }
 .spotlight-topics {
   display: grid;
@@ -1485,6 +1590,18 @@ main {
     break-inside: avoid;
   }
   .empty-state {
+    display: none;
+  }
+  .screenshot-carousel-track {
+    flex-wrap: wrap;
+    gap: 16px;
+    overflow: visible;
+  }
+  .screenshot-carousel-slide {
+    break-inside: avoid;
+  }
+  .screenshot-carousel-nav,
+  .screenshot-carousel-controls {
     display: none;
   }
 }

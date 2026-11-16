@@ -13,6 +13,10 @@ export const projects: Project[] = [
     technologies: ['Python', 'FastAPI', 'PostgreSQL', 'SQLAlchemy', 'React', 'Docker', 'Nginx'],
     featured: true,
     demoAccess: { url: 'https://mymedilens.com/', username: 'testUser', password: 'password' },
+    personalDemo: {
+      url: 'https://jong.3geun.com/medilens-demo/',
+      description: '팀 서비스·DB와 분리해 약봉투 인식과 복약 일정 흐름을 개인적으로 다시 구현한 데모입니다.',
+    },
     cover: {
       src: '/images/projects/medilens/screens/scan-analysis.png',
       alt: '약봉투 사진에서 복약 정보를 추출하는 MediLens 분석 진행 화면',

@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { projects } from '../data/projects'
 import { ExternalLink, SectionHeading, Tags } from '../components/common/UI'
+import { ScreenshotCarousel } from '../components/project/ScreenshotCarousel'
 import { NotFoundPage } from './NotFoundPage'
 import type { ProjectImage } from '../types'
 
@@ -150,21 +151,10 @@ export function ProjectDetailPage() {
           <SectionHeading title={project.screenshotsTitle ?? '실제 서비스 화면'}>
             {project.screenshotsNote}
           </SectionHeading>
-          <div className="project-screenshots">
-            {project.screenshots.map((screen) => (
-              <figure key={screen.src}>
-                <a
-                  href={screen.src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${screen.caption ?? screen.alt} 원본 이미지 열기 (새 탭)`}
-                >
-                  <img src={screen.src} alt={screen.alt} loading="lazy" />
-                </a>
-                {screen.caption && <figcaption>{screen.caption}</figcaption>}
-              </figure>
-            ))}
-          </div>
+          <ScreenshotCarousel
+            images={project.screenshots}
+            label={`${project.name} ${project.screenshotsTitle ?? '실제 서비스 화면'}`}
+          />
         </section>
       )}
       {project.integrations && project.integrations.length > 0 && (

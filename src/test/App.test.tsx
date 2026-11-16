@@ -196,6 +196,28 @@ describe('콘텐츠 데이터 연동', () => {
       medilens.personalDemo = original
     }
   })
+  it('실제 서비스 화면은 새 탭 링크 없이 캐러셀로 넘겨 본다', async () => {
+    const medilens = projects.find((item) => item.slug === 'medilens')!
+    const screens = medilens.screenshots!
+    visit('/projects/medilens')
+    const carousel = screen.getByRole('region', { name: /MediLens 실제 서비스 화면/ })
+    expect(within(carousel).queryByRole('link')).not.toBeInTheDocument()
+    expect(within(carousel).getByText(`1 / ${screens.length}`)).toBeInTheDocument()
+    const prev = within(carousel).getByRole('button', { name: '이전 화면' })
+    const next = within(carousel).getByRole('button', { name: '다음 화면' })
+    expect(prev).toBeDisabled()
+    await userEvent.click(next)
+    expect(within(carousel).getByText(`2 / ${screens.length}`)).toBeInTheDocument()
+    expect(prev).toBeEnabled()
+    await userEvent.click(
+      within(carousel).getByRole('button', { name: new RegExp(`^${screens.length}번째 화면 보기`) }),
+    )
+    expect(within(carousel).getByText(`${screens.length} / ${screens.length}`)).toBeInTheDocument()
+    expect(next).toBeDisabled()
+    within(carousel).getAllByRole('group', { hidden: true }).forEach((slide, i) => {
+      expect(slide).toHaveAttribute('aria-hidden', String(i !== screens.length - 1))
+    })
+  })
   it('프로젝트 데이터로 카드와 상세 페이지 전체를 생성한다', async () => {
     projects.push(project)
     visit('/projects')
