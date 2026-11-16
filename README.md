@@ -22,8 +22,8 @@ flowchart LR
 | 저장소                    | 내용                                                                                        | 경로               |
 | ------------------------- | ------------------------------------------------------------------------------------------- | ------------------ |
 | **portfolio** (이 저장소) | 자기소개·이력서·프로젝트 소개 사이트                                                        | `/`                |
-| **bing-wallpaper-studio** | Bing 배경화면을 해상도별 JPG로 저장하는 도구                                                | `/bing-wallpaper/` |
-| **medilens-demo**         | 팀 프로젝트 MediLens의 약봉투 인식 → 복약 일정 흐름을 로그인 없이 체험하는 개인 재구현 데모 | `/medilens-demo/`  |
+| [**bing-wallpaper-studio**](https://github.com/dlwhdrms24/bing-wallpaper-studio) | Bing 배경화면을 해상도별 JPG로 저장하는 도구                                                | `/bing-wallpaper/` |
+| [**medilens-demo**](https://github.com/dlwhdrms24/medilens-demo)         | 팀 프로젝트 MediLens의 약봉투 인식 → 복약 일정 흐름을 로그인 없이 체험하는 개인 재구현 데모 | `/medilens-demo/`  |
 
 포트폴리오 자체는 **빌드 시 사전 렌더링한 정적 사이트**입니다. 런타임에 API·DB·Node 프로세스가 없습니다.
 
