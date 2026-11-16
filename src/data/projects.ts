@@ -18,7 +18,7 @@ export const projects: Project[] = [
       description: '팀 서비스·DB와 분리해 약봉투 인식과 복약 일정 흐름을 개인적으로 다시 구현한 데모입니다.',
     },
     cover: {
-      src: '/images/projects/medilens/screens/scan-analysis.png',
+      src: '/images/projects/medilens/screens/scan-analysis-redacted.png',
       alt: '약봉투 사진에서 복약 정보를 추출하는 MediLens 분석 진행 화면',
       caption: '약봉투 분석',
       focus: 'center 85%',
