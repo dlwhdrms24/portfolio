@@ -1,8 +1,7 @@
 import { projects } from '../data/projects'
-import { profile } from '../data/profile'
 
 export const siteUrl = 'https://jong.3geun.com'
-export const siteName = profile.name ? `${profile.name} | 개발자 포트폴리오` : '개발자 포트폴리오'
+export const siteName = 'J.3geun'
 export function getMetadata(rawPath: string) {
   const path = rawPath.replace(/\/+$/, '') || '/'
   const project = projects.find((item) => path === `/projects/${item.slug}`)
@@ -22,7 +21,7 @@ export function getMetadata(rawPath: string) {
         ? '개발 프로젝트와 구현 과정, 문제 해결 경험을 소개합니다.'
         : '개발자의 소개, 이력서와 프로젝트를 한곳에서 확인하세요.')
   return {
-    title: `${siteName} | ${page}`,
+    title: path === '/' ? siteName : `${siteName} | ${page}`,
     description,
     url: `${siteUrl}${path}`,
     notFound: !['/', '/resume', '/projects'].includes(path) && !project,

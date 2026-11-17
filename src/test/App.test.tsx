@@ -57,6 +57,7 @@ describe('빈 콘텐츠와 라우팅', () => {
   it('프로필과 사진을 렌더링하고 비어 있는 링크를 숨긴다', () => {
     visit()
     expect(screen.getByRole('heading', { level: 1, name: 'J.3geun' })).toBeInTheDocument()
+    expect(document.title).toBe('J.3geun')
     expect(screen.getByRole('heading', { name: '이종근' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: '이종근 프로필 사진' })).toHaveAttribute(
       'src',
