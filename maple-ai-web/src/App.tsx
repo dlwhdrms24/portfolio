@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, RotateCcw } from 'lucide-react'
-import { About } from './components/About'
+import { RotateCcw } from 'lucide-react'
 import { Composer } from './components/Composer'
 import { Message, type Msg } from './components/Messages'
 import { ask, fetchCommands, fetchHealth, runCommand, type Health } from './lib/api'
@@ -109,10 +108,6 @@ export default function App() {
   return (
     <div className="app">
       <header className="top">
-        <a href="/" className="back" aria-label="포트폴리오로 돌아가기">
-          <ArrowLeft size={18} aria-hidden />
-          <span>3geun</span>
-        </a>
         <div className="brand">
           <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={32} height={32} />
           <h1>메이플 AI 도우미</h1>
@@ -160,7 +155,6 @@ export default function App() {
                 </button>
               ))}
             </div>
-            <About />
           </section>
         ) : (
           <div className="messages">

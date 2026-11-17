@@ -83,22 +83,10 @@ kbd {
   padding: 0.75rem 1rem;
   backdrop-filter: blur(8px);
 }
-.back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: var(--muted);
-  font-size: 0.875rem;
-  text-decoration: none;
-}
-.back:hover {
-  color: var(--accent);
-}
 .brand {
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
 }
 .brand h1 {
@@ -225,47 +213,6 @@ kbd {
 }
 .chip:disabled {
   opacity: 0.5;
-}
-
-/* ---- 작동 방식 ---- */
-.about {
-  margin-top: 1rem;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface);
-  text-align: left;
-}
-.about summary {
-  cursor: pointer;
-  padding: 0.85rem 1rem;
-  font-weight: 700;
-}
-.about-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  padding: 0 1rem 1rem;
-  font-size: 0.9rem;
-  line-height: 1.7;
-}
-.pipeline {
-  display: grid;
-  gap: 0.4rem;
-  padding-left: 1.25rem;
-}
-.pipeline li {
-  padding-left: 0.25rem;
-}
-.pipeline b {
-  margin-right: 0.5rem;
-  color: var(--accent);
-}
-.pipeline span,
-.about-note {
-  color: var(--muted);
-}
-.about-note {
-  font-size: 0.8rem;
 }
 
 /* ---- 메시지 ---- */
@@ -635,12 +582,6 @@ tbody tr:last-child td {
   font-size: 0.8rem;
 }
 @media (max-width: 480px) {
-  .back span {
-    display: none;
-  }
-  .brand {
-    justify-content: flex-start;
-  }
   .cmd {
     min-width: 6rem;
   }

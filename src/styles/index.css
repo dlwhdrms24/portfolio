@@ -1079,6 +1079,21 @@ main {
   align-items: center;
   gap: 10px;
 }
+.project-live-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--leaf);
+  text-underline-offset: 3px;
+}
+.project-live-link:hover {
+  color: var(--accent-hover);
+}
 .project-role {
   font-size: 10px;
   color: var(--subtle);

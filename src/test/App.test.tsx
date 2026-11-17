@@ -179,6 +179,25 @@ describe('콘텐츠 데이터 연동', () => {
       medilens.personalDemo = original
     }
   })
+  it('운영 사이트(liveUrl)가 있는 카드는 소개 페이지로 가고, 사이트 바로가기를 따로 둔다', () => {
+    visit('/projects')
+    const card = screen.getByRole('heading', { name: /메이플 AI 도우미/ }).closest('article')!
+    expect(within(card).getByRole('link', { name: /메이플 AI 도우미/ })).toHaveAttribute(
+      'href',
+      '/projects/maple-ai',
+    )
+    expect(within(card).getByRole('link', { name: /사이트 바로가기/ })).toHaveAttribute(
+      'href',
+      'https://3geun.com/maple-ai/',
+    )
+  })
+  it('운영 사이트가 있는 상세 페이지는 상단에 사이트 바로가기를 표시한다', () => {
+    visit('/projects/maple-ai')
+    expect(screen.getByRole('link', { name: /사이트 바로가기/ })).toHaveAttribute(
+      'href',
+      'https://3geun.com/maple-ai/',
+    )
+  })
   it('실제 서비스 화면은 새 탭 링크 없이 캐러셀로 넘겨 본다', async () => {
     const medilens = projects.find((item) => item.slug === 'medilens')!
     const screens = medilens.screenshots!

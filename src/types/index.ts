@@ -81,6 +81,8 @@ export interface Project {
   }
   cover?: ProjectImage
   demoUrl?: string
+  /** 운영 중인 서비스 주소. demoUrl 과 달리 카드는 소개 페이지로 가고, 카드와 소개 페이지에 사이트 바로가기를 둔다. */
+  liveUrl?: string
   demoAccess?: { url: string; username: string; password: string }
   /** 팀 서비스와 분리해 배포한 개인 재구현 데모. 배포 검증 후 추가한다. */
   personalDemo?: { url: string; description: string }

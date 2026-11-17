@@ -44,6 +44,11 @@ export function ProjectCard({ project }: { project: Project }) {
           )}
         </h3>
         {project.demoUrl && <p className="entry-period">서비스 바로가기</p>}
+        {project.liveUrl && (
+          <a className="project-live-link" href={project.liveUrl}>
+            사이트 바로가기 <ArrowUpRight size={13} aria-hidden="true" />
+          </a>
+        )}
         <p className="muted">{project.summary}</p>
         <p className="project-role">
           담당 역할 <span>{project.role}</span>

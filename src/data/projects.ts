@@ -238,15 +238,32 @@ export const projects: Project[] = [
   {
     slug: 'maple-ai',
     name: '메이플 AI 도우미',
-    summary: '집 PC의 로컬 LLM과 RAG로 메이플스토리 질문에 답하고, Nexon Open API로 캐릭터를 조회하는 AI 서비스',
+    summary:
+      '집 PC의 로컬 LLM과 RAG로 메이플스토리 질문에 답하고, Nexon Open API로 캐릭터를 조회하는 AI 서비스',
     period: '1일',
     type: '개인 프로젝트',
     role: '데이터 수집·검색·LLM 파이프라인·서빙·웹 화면 전체 구현',
     purpose:
       '메이플스토리 정보는 나무위키, 넥슨 공지, 캐릭터 조회 사이트에 흩어져 있습니다. 질문 하나로 게임 지식과 내 캐릭터 정보를 함께 답하는 도우미를 만들었습니다. 유료 API 대신 집 PC의 GPU(RTX 3070 Ti 8GB)에서 Qwen3 8B를 돌리고, VPS는 Tailscale로 요청만 전달합니다.',
-    technologies: ['Python', 'LangGraph', 'Ollama', 'Qwen3 8B', 'Qdrant', 'FastAPI', 'React', 'Tailscale', 'Nginx', 'Docker'],
+    technologies: [
+      'Python',
+      'LangGraph',
+      'Ollama',
+      'Qwen3 8B',
+      'Qdrant',
+      'FastAPI',
+      'React',
+      'Tailscale',
+      'Nginx',
+      'Docker',
+    ],
     featured: true,
-    demoUrl: 'https://3geun.com/maple-ai/',
+    liveUrl: 'https://3geun.com/maple-ai/',
+    cover: {
+      src: '/images/projects/maple-ai/home.png',
+      alt: '메이플 AI 도우미 첫 화면: 버섯 갓을 쓴 로고, 예시 질문 버튼, 질문 입력창',
+      caption: '메이플 AI 도우미 첫 화면',
+    },
     features: [
       {
         title: '근거가 있는 답변',
@@ -287,19 +304,23 @@ export const projects: Project[] = [
           '표가 600자 조각으로 잘려 22성 행이 컨텍스트에 없었고, 들어가도 2줄 병합 머리글과 7개 열을 작은 모델이 잘못 읽었습니다.',
         solution:
           '검색에 걸린 조각의 섹션 전체를 다시 합쳐 넣고, 표를 "22성: 파괴 확률(일반) 16.85%" 같은 행 단위 문장으로 펼쳤습니다. 긴 표는 질문에 나온 단계의 행만 남깁니다.',
-        result: '같은 질문에 정답(16.85%)을 내고, 캐릭터 장비의 현재 성과 조합한 질문도 맞혔습니다.',
+        result:
+          '같은 질문에 정답(16.85%)을 내고, 캐릭터 장비의 현재 성과 조합한 질문도 맞혔습니다.',
       },
       {
         title: 'LLM 근거 검증이 맞는 답을 막음',
-        problem: '답변을 같은 8B 모델로 검증했더니 맞는 답 3개를 근거 없음으로 막고, 조건을 잘못 읽은 답은 통과시켰습니다.',
+        problem:
+          '답변을 같은 8B 모델로 검증했더니 맞는 답 3개를 근거 없음으로 막고, 조건을 잘못 읽은 답은 통과시켰습니다.',
         cause: '작은 모델은 캐릭터 정보와 표를 조합한 추론을 근거 없는 주장으로 판단했습니다.',
-        solution: '답변에 나온 숫자가 자료에 그대로 있는지를 코드로 검사하고, LLM 검증은 선택 기능으로 돌렸습니다.',
+        solution:
+          '답변에 나온 숫자가 자료에 그대로 있는지를 코드로 검사하고, LLM 검증은 선택 기능으로 돌렸습니다.',
         result: '답변 정확도가 82%에서 94%로, 응답 중앙값이 3.4초에서 1.4초로 좋아졌습니다.',
       },
       {
         title: '두 모델이 VRAM에 함께 올라가지 않음',
         problem: '생성 속도가 초당 9.8토큰으로, 기대치의 1/7 수준이었습니다.',
-        cause: 'Windows가 VRAM 1.2GB를 쓰고 있어 Qwen3 8B와 임베딩 모델 bge-m3가 질문마다 번갈아 올라갔습니다.',
+        cause:
+          'Windows가 VRAM 1.2GB를 쓰고 있어 Qwen3 8B와 임베딩 모델 bge-m3가 질문마다 번갈아 올라갔습니다.',
         solution: 'Flash Attention과 q8_0 KV 캐시로 컨텍스트 메모리를 절반으로 줄였습니다.',
         result: '두 모델이 함께 GPU에 상주하고 생성 속도가 초당 67.8토큰이 됐습니다.',
       },

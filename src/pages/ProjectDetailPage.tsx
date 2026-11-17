@@ -37,6 +37,11 @@ export function ProjectDetailPage() {
             직접 써보기 <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         )}
+        {project.liveUrl && (
+          <a href={project.liveUrl} className="button primary">
+            사이트 바로가기 <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        )}
       </div>
       {project.personalDemo && (
         <section className="project-personal-demo" aria-labelledby="project-personal-demo-title">
