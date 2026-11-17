@@ -189,6 +189,11 @@ kbd {
   padding-top: 2rem;
   text-align: center;
 }
+.intro-logo {
+  align-self: center;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(36, 84, 58, 0.18);
+}
 .intro h2 {
   font-size: clamp(1.35rem, 4vw, 1.75rem);
   font-weight: 800;

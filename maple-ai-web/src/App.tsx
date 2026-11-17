@@ -114,7 +114,7 @@ export default function App() {
           <span>3geun</span>
         </a>
         <div className="brand">
-          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={28} height={28} />
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" width={32} height={32} />
           <h1>메이플 AI 도우미</h1>
         </div>
         <span className={`status ${health?.state ?? 'checking'}`} role="status">
@@ -134,6 +134,13 @@ export default function App() {
       <main className="chat" aria-label="대화">
         {messages.length === 0 ? (
           <section className="intro">
+            <img
+              className="intro-logo"
+              src={`${import.meta.env.BASE_URL}favicon.svg`}
+              alt="주황 버섯 모자를 쓴 3geun 새싹 로고"
+              width={72}
+              height={72}
+            />
             <h2>메이플스토리, 무엇이든 물어보세요</h2>
             <p>
               나무위키와 넥슨 공지를 근거로 답하고, 캐릭터 정보는 Nexon Open API 에서 바로 가져옵니다.
