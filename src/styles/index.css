@@ -213,11 +213,7 @@ section[id] {
 .brand-icon {
   width: 30px;
   height: 30px;
-  border-radius: 7px;
-  background: var(--accent);
-  color: var(--bg);
-  display: grid;
-  place-items: center;
+  display: block;
 }
 .brand-dot {
   color: var(--accent);

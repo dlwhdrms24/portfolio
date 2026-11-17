@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUp, ArrowUpRight, CodeXml, GitBranch, Menu, Moon, Sun, X } from 'lucide-react'
+import { ArrowUp, ArrowUpRight, GitBranch, Menu, Moon, Sun, X } from 'lucide-react'
 import { profile } from '../../data/profile'
 import { useTheme } from '../../hooks/useTheme'
 import { getMetadata } from '../../app/metadata'
@@ -20,9 +20,7 @@ function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Link to="/" className="brand" onClick={() => setOpen(false)} aria-label="포트폴리오 홈">
-          <span className="brand-icon">
-            <CodeXml size={21} aria-hidden="true" />
-          </span>
+          <img className="brand-icon" src="/favicon.svg" alt="" width={30} height={30} />
         </Link>
         <nav aria-label="주 메뉴" className="desktop-nav">
           {navigation.map((item) => (
@@ -127,7 +125,7 @@ export function Layout() {
         <div className="container footer-inner">
           <div>
             <Link to="/" className="footer-brand" aria-label="포트폴리오 홈">
-              <CodeXml size={17} aria-hidden="true" />
+              <img src="/favicon.svg" alt="" width={20} height={20} />
             </Link>
             <p>
               © {new Date().getFullYear()} {profile.name || 'Developer Portfolio'}. All rights
