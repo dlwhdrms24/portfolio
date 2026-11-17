@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
 import { QrCode, X } from 'lucide-react'
 import { siteUrl } from '../../app/metadata'
 
 export function QrShare() {
   const [open, setOpen] = useState(false)
   const [svg, setSvg] = useState('')
-  const { pathname } = useLocation()
   const root = useRef<HTMLDivElement>(null)
   const button = useRef<HTMLButtonElement>(null)
-  const url = `${siteUrl}${pathname === '/' ? '/' : pathname.replace(/\/+$/, '')}`
+  // 어느 페이지에서 열어도 홈 주소를 보여줍니다.
+  const url = `${siteUrl}/`
 
   useEffect(() => {
     if (!open) return

@@ -124,13 +124,13 @@ describe('빈 콘텐츠와 라우팅', () => {
 })
 
 describe('QR 코드', () => {
-  it('헤더 버튼으로 현재 페이지 주소의 QR 코드를 열고 닫는다', async () => {
+  it('헤더 버튼은 어느 페이지에서든 홈 주소의 QR 코드를 열고 닫는다', async () => {
     visit('/resume')
     await userEvent.click(screen.getByRole('button', { name: '주소 QR 코드 보기' }))
     const dialog = screen.getByRole('dialog', { name: '페이지 주소 QR 코드' })
-    expect(within(dialog).getByText('3geun.com/resume')).toBeInTheDocument()
+    expect(within(dialog).getByText('3geun.com/')).toBeInTheDocument()
     expect(
-      await within(dialog).findByRole('img', { name: 'https://3geun.com/resume QR 코드' }),
+      await within(dialog).findByRole('img', { name: 'https://3geun.com/ QR 코드' }),
     ).toBeInTheDocument()
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
