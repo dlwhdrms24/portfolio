@@ -19,7 +19,7 @@ export function getMetadata(rawPath: string) {
       ? '프로필, 기술 스택, 경험과 학력을 정리한 개발자 이력서입니다.'
       : path === '/projects'
         ? '개발 프로젝트와 구현 과정, 문제 해결 경험을 소개합니다.'
-        : '개발자의 소개, 이력서와 프로젝트를 한곳에서 확인하세요.')
+        : '안녕하세요 이종근입니다')
   return {
     title: path === '/' ? siteName : `${siteName} | ${page}`,
     description,
