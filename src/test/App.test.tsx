@@ -86,7 +86,7 @@ describe('빈 콘텐츠와 라우팅', () => {
         path === '/resume'
           ? '이종근의 이력서'
           : path === '/projects'
-            ? '코드로 풀어낸 이야기'
+            ? '프로젝트'
             : '페이지를 찾을 수 없습니다.',
       )
       if (path.includes('unknown') || path === '/missing')

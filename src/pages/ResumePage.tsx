@@ -9,20 +9,15 @@ import { ProfileAvatar } from '../components/common/ProfileAvatar'
 export function ResumePage() {
   return (
     <div className="container inner-page">
-      <div className="page-heading">
-        <div>
-          <h1>
-            이종근의 이력서<span className="accent">.</span>
-          </h1>
-          <p>배우고, 만들고, 성장해 온 과정을 소개합니다.</p>
-        </div>
-        {profile.resumePdf && (
+      <h1 className="sr-only">이종근의 이력서</h1>
+      {profile.resumePdf && (
+        <div className="page-actions">
           <a className="button secondary" href={profile.resumePdf} download>
             <Download size={17} />
             PDF 다운로드
           </a>
-        )}
-      </div>
+        </div>
+      )}
       <div className="resume-layout">
         <aside className="resume-sidebar">
           <ProfileAvatar large />

@@ -1,3 +1,5 @@
+import { ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { EmptyState } from '../components/common/UI'
@@ -18,18 +20,32 @@ export function HomePage() {
         </h1>
       </section>
       <section className="home-section" aria-label="소개">
+        <div className="section-more">
+          <Link className="text-link" to="/resume">
+            전체 이력서 보기
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
         <div className="resume-preview">
           <div className="profile-preview">
             <ProfileAvatar />
             <h2>{profile.name || '이름을 입력해 주세요'}</h2>
+            <div className="profile-skills">
+              <Skills compact />
+            </div>
           </div>
           <div className="resume-preview-details">
-            <Skills compact />
             <Education compact />
           </div>
         </div>
       </section>
       <section className="home-section projects-preview" aria-label="프로젝트">
+        <div className="section-more">
+          <Link className="text-link" to="/projects">
+            전체 프로젝트 보기
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
         {featured.length ? (
           <div className="project-grid">
             {featured.map((project) => (

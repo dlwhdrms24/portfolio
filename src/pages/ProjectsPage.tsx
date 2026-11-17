@@ -5,14 +5,7 @@ import { ProjectCard } from '../components/project/ProjectCard'
 export function ProjectsPage() {
   return (
     <div className="container inner-page">
-      <div className="page-heading">
-        <div>
-          <h1>
-            코드로 풀어낸 이야기<span className="accent">.</span>
-          </h1>
-          <p>무엇을 만들었는지, 어떻게 문제를 해결했는지 기록합니다.</p>
-        </div>
-      </div>
+      <h1 className="sr-only">프로젝트</h1>
       <div className="list-toolbar">
         <h2>
           전체 프로젝트 <span>{String(projects.length).padStart(2, '0')}</span>

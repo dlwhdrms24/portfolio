@@ -386,6 +386,46 @@ section[id] {
 .section-heading > .text-link {
   margin-top: 24px;
 }
+.section-more {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+}
+.profile-skills {
+  margin-top: 18px;
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+.profile-skills .resume-block {
+  padding: 16px 0 0;
+}
+.profile-skills .block-heading {
+  margin-bottom: 10px;
+}
+.profile-skills .block-heading h3 {
+  font-size: 13px;
+}
+.profile-skills .skill-categories {
+  gap: 12px;
+}
+.profile-skills .skill-categories h4 {
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+.profile-skills .tags {
+  gap: 5px;
+}
+.profile-skills .tags li {
+  background: var(--surface);
+  font-size: 11px;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+.page-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+}
 .resume-preview {
   border: 1px solid var(--line);
   border-radius: 9px;
