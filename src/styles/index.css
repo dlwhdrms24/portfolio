@@ -409,6 +409,54 @@ section[id] {
 .section-heading > .text-link {
   margin-top: 24px;
 }
+.projects-link {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 26px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  transition:
+    border-color 0.18s,
+    transform 0.18s;
+}
+.projects-link:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.projects-link-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.projects-link-text {
+  display: grid;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.projects-link-text strong {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+.projects-link-text span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.projects-link-arrow {
+  color: var(--accent);
+  transition: transform 0.18s;
+}
+.projects-link:hover .projects-link-arrow {
+  transform: translateX(4px);
+}
 .section-more {
   display: flex;
   justify-content: flex-end;

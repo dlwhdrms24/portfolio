@@ -72,7 +72,7 @@ describe('빈 콘텐츠와 라우팅', () => {
   it('프로젝트가 비어 있으면 준비 중 안내를 표시한다', () => {
     const saved = projects.splice(0)
     try {
-      visit()
+      visit('/projects')
       expect(screen.getByRole('heading', { name: '프로젝트를 준비 중입니다.' })).toBeInTheDocument()
     } finally {
       projects.push(...saved)
@@ -150,8 +150,8 @@ describe('콘텐츠 데이터 연동', () => {
     delete profile.resumePdf
     Object.assign(profile, publishedProfile)
   })
-  it('홈에서 MediLens를 먼저 표시하고 서버·DB 상세로 연결한다', async () => {
-    visit()
+  it('프로젝트 목록에서 MediLens를 먼저 표시하고 서버·DB 상세로 연결한다', async () => {
+    visit('/projects')
     const cards = screen.getAllByRole('article')
     const medilens = within(cards[0]).getByRole('link', { name: 'MediLens' })
     expect(within(cards[1]).getByRole('link', { name: 'Create Problem AI' })).toBeInTheDocument()
@@ -229,10 +229,12 @@ describe('콘텐츠 데이터 연동', () => {
     )
     expect(document.title).toContain(project.name)
   })
-  it('대표 프로젝트는 featured를 따르고 실제 등록되지 않은 예시는 노출하지 않는다', () => {
-    projects.push({ ...project, featured: false })
+  it('홈은 프로젝트 카드 대신 프로젝트 페이지로 가는 링크만 보여준다', async () => {
     visit()
-    expect(screen.queryByRole('link', { name: project.name })).not.toBeInTheDocument()
+    expect(screen.queryAllByRole('article')).toHaveLength(0)
+    await userEvent.click(screen.getByRole('link', { name: /프로젝트 보러 가기/ }))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('프로젝트')
+    expect(screen.getAllByRole('article').length).toBe(projects.length)
   })
   it('프로필, 스킬, 이력서, 연락처, PDF를 데이터에서 읽는다', () => {
     Object.assign(profile, {

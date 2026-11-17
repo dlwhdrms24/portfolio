@@ -1,15 +1,22 @@
-import { ArrowUpRight, Award, GitBranch, GraduationCap, Mail, Phone } from 'lucide-react'
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Award,
+  FolderOpen,
+  GitBranch,
+  GraduationCap,
+  Mail,
+  Phone,
+} from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
-import { EmptyState, ExternalLink } from '../components/common/UI'
+import { ExternalLink } from '../components/common/UI'
 import { Skills } from '../components/resume/ResumeSections'
 import { resume } from '../data/resume'
-import { ProjectCard } from '../components/project/ProjectCard'
 import { ProfileAvatar } from '../components/common/ProfileAvatar'
 
 export function HomePage() {
-  const featured = projects.filter((project) => project.featured)
   return (
     <div className="container home-page">
       <section className="hero" aria-labelledby="hero-title">
@@ -116,26 +123,21 @@ export function HomePage() {
           </div>
         </div>
       </section>
-      <section className="home-section projects-preview" aria-label="프로젝트">
-        <div className="section-more">
-          <Link className="text-link" to="/projects">
-            전체 프로젝트 보기
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-        {featured.length ? (
-          <div className="project-grid">
-            {featured.map((project) => (
-              <ProjectCard project={project} key={project.slug} />
-            ))}
-          </div>
-        ) : (
-          <EmptyState
-            title="프로젝트를 준비 중입니다."
-            description="아이디어가 코드로, 코드가 서비스가 되는 과정을 기록합니다."
-            compact
-          />
-        )}
+      <section className="home-section" aria-label="프로젝트">
+        <Link className="projects-link" to="/projects">
+          <span className="projects-link-icon">
+            <FolderOpen size={22} aria-hidden="true" />
+          </span>
+          <span className="projects-link-text">
+            <strong>프로젝트</strong>
+            <span>
+              {projects.length
+                ? `${projects.length}개의 프로젝트 보러 가기`
+                : '프로젝트를 준비 중입니다.'}
+            </span>
+          </span>
+          <ArrowRight className="projects-link-arrow" size={20} aria-hidden="true" />
+        </Link>
       </section>
     </div>
   )
