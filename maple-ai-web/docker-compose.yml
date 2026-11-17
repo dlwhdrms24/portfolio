@@ -1,0 +1,24 @@
+# 메이플 AI 화면. 포트폴리오·다른 데모와 별도 Compose 프로젝트로 운영한다.
+#   docker compose up -d --build
+# 답변을 만드는 API 는 개인 PC 에서 돌고, 호스트 Nginx 가 Tailscale 로 연결한다 (nginx-host-locations.conf).
+name: maple-ai-web
+services:
+  web:
+    image: ${MAPLE_WEB_IMAGE:-maple-ai-web:local}
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:${MAPLE_WEB_PORT:-18100}:8080'
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 64m
+    pids_limit: 50
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
