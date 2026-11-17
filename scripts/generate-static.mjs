@@ -56,5 +56,5 @@ await writeFile(
   'dist/sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((path) => `<url><loc>${escape(siteUrl + path)}</loc></url>`).join('')}</urlset>\n`,
 )
-await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`)
-console.log(`정적 HTML ${paths.length}개 및 404, sitemap.xml, robots.txt 생성 완료`)
+// robots.txt는 public/robots.txt를 그대로 사용한다 (모든 봇 차단).
+console.log(`정적 HTML ${paths.length}개 및 404, sitemap.xml 생성 완료`)

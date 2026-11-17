@@ -1,0 +1,91 @@
+# 모든 크롤러·검색엔진·AI 봇의 수집을 차단합니다.
+# robots.txt는 권고 사항이므로 이를 따르는 봇에만 효력이 있습니다.
+
+# --- AI 학습·검색·에이전트 봇 ---
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: OAI-SearchBot
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: Claude-Web
+User-agent: anthropic-ai
+User-agent: Google-Extended
+User-agent: Google-CloudVertexBot
+User-agent: GoogleOther
+User-agent: GoogleOther-Image
+User-agent: GoogleOther-Video
+User-agent: Applebot-Extended
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: CCBot
+User-agent: Bytespider
+User-agent: TikTokSpider
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: FacebookBot
+User-agent: Amazonbot
+User-agent: cohere-ai
+User-agent: cohere-training-data-crawler
+User-agent: Diffbot
+User-agent: YouBot
+User-agent: MistralAI-User
+User-agent: DuckAssistBot
+User-agent: AI2Bot
+User-agent: Ai2Bot-Dolma
+User-agent: PetalBot
+User-agent: Timpibot
+User-agent: omgili
+User-agent: omgilibot
+User-agent: Webzio-Extended
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: Kangaroo Bot
+User-agent: PanguBot
+User-agent: Scrapy
+User-agent: iaskspider
+User-agent: ICC-Crawler
+User-agent: VelenPublicWebCrawler
+User-agent: Brightbot
+User-agent: QualifiedBot
+User-agent: Novellum
+User-agent: FirecrawlAgent
+User-agent: Crawlspace
+Disallow: /
+
+# --- 검색엔진·SEO·아카이브 봇 ---
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Googlebot-Video
+User-agent: Googlebot-News
+User-agent: Storebot-Google
+User-agent: AdsBot-Google
+User-agent: Mediapartners-Google
+User-agent: Bingbot
+User-agent: BingPreview
+User-agent: MSNBot
+User-agent: Yeti
+User-agent: Daum
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+User-agent: YandexBot
+User-agent: Yandex
+User-agent: Applebot
+User-agent: Slurp
+User-agent: SeznamBot
+User-agent: Sogou
+User-agent: Exabot
+User-agent: MojeekBot
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: archive.org_bot
+User-agent: ia_archiver
+Disallow: /
+
+# --- 그 외 모든 봇 ---
+User-agent: *
+Disallow: /
