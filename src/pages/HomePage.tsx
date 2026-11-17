@@ -28,8 +28,8 @@ export function HomePage() {
         </h1>
         <p className="hero-tagline">ABOUT · RESUME · PROJECTS</p>
         <p className="hero-story">
-          저희 삼 형제는 이름이 모두 &lsquo;근&rsquo;으로 끝납니다. 그중 막내인 저는 세 번째 근,
-          그래서 3geun입니다.
+          <span>저희 삼 형제는 이름이 모두 &lsquo;근&rsquo;으로 끝납니다.</span>{' '}
+          <span>그중 막내인 저는 세 번째 근,</span> <span>그래서 3geun입니다.</span>
         </p>
       </section>
       <section className="home-section" aria-label="소개">

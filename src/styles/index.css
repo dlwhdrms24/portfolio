@@ -347,7 +347,8 @@ section[id] {
   color: var(--muted);
 }
 .hero-story {
-  max-width: 36rem;
+  display: grid;
+  gap: 6px;
   margin-top: 22px;
   font-size: 15px;
   line-height: 1.8;
