@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowUp, ArrowUpRight, GitBranch, Menu, Moon, Sun, X } from 'lucide-react'
+import { ArrowUp, ArrowUpRight, GitBranch, Menu, X } from 'lucide-react'
 import { profile } from '../../data/profile'
-import { useTheme } from '../../hooks/useTheme'
 import { getMetadata } from '../../app/metadata'
 import { ExternalLink } from '../common/UI'
+import { QrShare } from './QrShare'
 
 const navigation = [
   { to: '/', label: 'Home' },
@@ -14,7 +14,6 @@ const navigation = [
 
 function Header() {
   const [open, setOpen] = useState(false)
-  const { theme, toggle } = useTheme()
   const menuButton = useRef<HTMLButtonElement>(null)
   return (
     <header className="site-header">
@@ -36,13 +35,7 @@ function Header() {
               GitHub
             </ExternalLink>
           )}
-          <button
-            className="icon-button theme-button"
-            onClick={toggle}
-            aria-label={theme === 'light' ? '다크 모드로 전환' : '라이트 모드로 전환'}
-          >
-            {theme === 'light' ? <Moon size={19} /> : <Sun size={19} />}
-          </button>
+          <QrShare />
           <button
             ref={menuButton}
             className="icon-button mobile-toggle"

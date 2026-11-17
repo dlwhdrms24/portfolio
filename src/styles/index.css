@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
   font-family:
@@ -25,21 +24,6 @@
   --accent-soft: #edf2ff;
   --nav-bg: rgba(251, 252, 254, 0.94);
   color-scheme: light;
-}
-:root[data-theme='dark'] {
-  --bg: #101722;
-  --surface: #161f2d;
-  --soft: #1b2637;
-  --text: #e3eaf5;
-  --muted: #a1afc3;
-  --subtle: #94a4ba;
-  --line: #2a374b;
-  --accent: #92afff;
-  --accent-soft: #202f50;
-  --nav-bg: rgba(16, 23, 34, 0.95);
-  background: var(--bg);
-  color: var(--text);
-  color-scheme: dark;
 }
 * {
   box-sizing: border-box;
@@ -276,12 +260,76 @@ section[id] {
 .icon-button:hover {
   background: var(--soft);
 }
+.qr-share {
+  position: relative;
+}
+.qr-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 40;
+  width: 212px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgb(15 23 42 / 0.14);
+  text-align: center;
+}
+.qr-image {
+  width: 180px;
+  height: 180px;
+}
+.qr-image svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.qr-loading {
+  background: var(--soft);
+  border-radius: 6px;
+}
+.qr-url {
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text);
+}
+.qr-hint {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
 .mobile-toggle,
 .mobile-nav {
   display: none;
 }
 .hero {
   padding: 65px 0 60px;
+}
+.hero h1.hero-wordmark {
+  display: flex;
+  align-items: baseline;
+  font-size: clamp(64px, 12vw, 128px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.hero h1.hero-wordmark > span {
+  font-size: inherit;
+  color: var(--text);
+}
+.hero h1.hero-wordmark > .wm-j {
+  color: #9a6738;
+}
+.hero h1.hero-wordmark > .wm-period {
+  color: #8dcb6e;
+}
+.hero h1.hero-wordmark > .wm-3 {
+  color: #f2b544;
+}
+.hero h1.hero-wordmark > .wm-geun {
+  color: #24543a;
 }
 .hero-content {
   max-width: 42rem;
@@ -362,7 +410,7 @@ section[id] {
   border-radius: 13px;
   margin-bottom: 20px;
 }
-.profile-preview h3 {
+.profile-preview h2 {
   font-size: 18px;
   font-weight: 650;
   letter-spacing: -0.6px;
@@ -1110,7 +1158,9 @@ main {
   height: 8px;
   border-radius: 999px;
   background: var(--line);
-  transition: width 0.2s ease, background 0.2s ease;
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
 }
 .screenshot-carousel-dots button.active::before {
   width: 20px;
@@ -1367,7 +1417,7 @@ main {
     height: auto;
     margin-left: 12px;
   }
-  .profile-preview h3 {
+  .profile-preview h2 {
     font-size: 18px;
   }
   .profile-preview > .muted {

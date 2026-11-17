@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest'
-import { act, render, screen, within } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { App } from '../app/App'
@@ -56,7 +56,8 @@ const publishedCertifications = [...resume.certifications]
 describe('빈 콘텐츠와 라우팅', () => {
   it('프로필과 사진을 렌더링하고 비어 있는 링크를 숨긴다', () => {
     visit()
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('이종근')
+    expect(screen.getByRole('heading', { level: 1, name: 'J.3geun' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '이종근' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: '이종근 프로필 사진' })).toHaveAttribute(
       'src',
       '/images/profile.jpg',
@@ -121,37 +122,18 @@ describe('빈 콘텐츠와 라우팅', () => {
   })
 })
 
-describe('테마', () => {
-  it('수동 선택을 저장하고 페이지 이동 후에도 유지한다', async () => {
-    visit()
-    await userEvent.click(screen.getByRole('button', { name: '다크 모드로 전환' }))
-    expect(document.documentElement.dataset.theme).toBe('dark')
-    expect(localStorage.getItem('portfolio-theme')).toBe('dark')
-    await userEvent.click(screen.getByRole('link', { name: '이력서 보기' }))
-    expect(screen.getByRole('button', { name: '라이트 모드로 전환' })).toBeInTheDocument()
-  })
-  it('저장된 설정이 없으면 시스템 테마를 따르고 변경을 감지한다', () => {
-    const original = window.matchMedia
-    let changed: (() => void) | undefined
-    const media = {
-      matches: true,
-      addEventListener: (_event: string, listener: () => void) => {
-        changed = listener
-      },
-      removeEventListener: () => {},
-    }
-    window.matchMedia = (() => media) as unknown as typeof window.matchMedia
-    try {
-      visit()
-      expect(document.documentElement.dataset.theme).toBe('dark')
-      act(() => {
-        media.matches = false
-        changed?.()
-      })
-      expect(document.documentElement.dataset.theme).toBe('light')
-    } finally {
-      window.matchMedia = original
-    }
+describe('QR 코드', () => {
+  it('헤더 버튼으로 현재 페이지 주소의 QR 코드를 열고 닫는다', async () => {
+    visit('/resume')
+    await userEvent.click(screen.getByRole('button', { name: '주소 QR 코드 보기' }))
+    const dialog = screen.getByRole('dialog', { name: '페이지 주소 QR 코드' })
+    expect(within(dialog).getByText('jong.3geun.com/resume')).toBeInTheDocument()
+    expect(
+      await within(dialog).findByRole('img', { name: 'https://jong.3geun.com/resume QR 코드' }),
+    ).toBeInTheDocument()
+    await userEvent.keyboard('{Escape}')
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '주소 QR 코드 보기' })).toHaveFocus()
   })
 })
 
@@ -210,13 +192,17 @@ describe('콘텐츠 데이터 연동', () => {
     expect(within(carousel).getByText(`2 / ${screens.length}`)).toBeInTheDocument()
     expect(prev).toBeEnabled()
     await userEvent.click(
-      within(carousel).getByRole('button', { name: new RegExp(`^${screens.length}번째 화면 보기`) }),
+      within(carousel).getByRole('button', {
+        name: new RegExp(`^${screens.length}번째 화면 보기`),
+      }),
     )
     expect(within(carousel).getByText(`${screens.length} / ${screens.length}`)).toBeInTheDocument()
     expect(next).toBeDisabled()
-    within(carousel).getAllByRole('group', { hidden: true }).forEach((slide, i) => {
-      expect(slide).toHaveAttribute('aria-hidden', String(i !== screens.length - 1))
-    })
+    within(carousel)
+      .getAllByRole('group', { hidden: true })
+      .forEach((slide, i) => {
+        expect(slide).toHaveAttribute('aria-hidden', String(i !== screens.length - 1))
+      })
   })
   it('프로젝트 데이터로 카드와 상세 페이지 전체를 생성한다', async () => {
     projects.push(project)
@@ -269,14 +255,8 @@ describe('콘텐츠 데이터 연동', () => {
       date: '테스트 날짜',
     })
     visit('/resume')
-    for (const text of [
-      '테스트 이름',
-      '테스트 소개 문단',
-      '테스트 분류',
-      '테스트 기술',
-      '테스트 교육',
-      '테스트 자격',
-    ])
+    expect(screen.queryByText('테스트 분류')).not.toBeInTheDocument()
+    for (const text of ['테스트 이름', '테스트 소개 문단', '테스트 교육', '테스트 자격'])
       expect(screen.getByText(text)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /PDF 다운로드/ })).toHaveAttribute(
       'href',

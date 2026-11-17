@@ -1,7 +1,7 @@
 import { Download, GitBranch, Mail, MapPin, Phone } from 'lucide-react'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
-import { Certifications, Education, Skills } from '../components/resume/ResumeSections'
+import { Certifications, Education } from '../components/resume/ResumeSections'
 import { EmptyState, ExternalLink, SectionHeading } from '../components/common/UI'
 import { Link } from 'react-router-dom'
 import { ProfileAvatar } from '../components/common/ProfileAvatar'
@@ -27,7 +27,6 @@ export function ResumePage() {
         <aside className="resume-sidebar">
           <ProfileAvatar large />
           <h2>{profile.name || '이름을 입력해 주세요'}</h2>
-          <p className="muted">{profile.introduction || '자기소개를 준비 중입니다.'}</p>
           {profile.location && (
             <p className="contact-item">
               <MapPin size={16} />
@@ -37,7 +36,6 @@ export function ResumePage() {
           <nav aria-label="이력서 목차" className="resume-toc">
             {[
               ['about', '자기소개'],
-              ['skills', '기술 스택'],
               ['education', '학력 · 자격증'],
               ['project-summary', '프로젝트'],
               ['contact', '연락처'],
@@ -61,9 +59,6 @@ export function ResumePage() {
             ) : (
               <p className="placeholder-line">자기소개를 준비 중입니다.</p>
             )}
-          </section>
-          <section id="skills">
-            <Skills />
           </section>
           <section id="education">
             <Education />

@@ -57,7 +57,12 @@ export function ScreenshotCarousel({ images, label }: { images: ProjectImage[]; 
   }
 
   return (
-    <div className="screenshot-carousel" role="region" aria-roledescription="carousel" aria-label={label}>
+    <div
+      className="screenshot-carousel"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={label}
+    >
       <div className="screenshot-carousel-viewport">
         <div
           className="screenshot-carousel-track"
@@ -76,7 +81,12 @@ export function ScreenshotCarousel({ images, label }: { images: ProjectImage[]; 
               aria-hidden={i !== index}
             >
               <div className="screenshot-carousel-frame">
-                <img src={image.src} alt={image.alt} loading={i === 0 ? 'eager' : 'lazy'} draggable={false} />
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  draggable={false}
+                />
               </div>
               {image.caption && <figcaption>{image.caption}</figcaption>}
             </figure>

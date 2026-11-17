@@ -17,5 +17,4 @@ window.scrollTo = vi.fn()
 afterEach(() => {
   cleanup()
   localStorage.clear()
-  document.documentElement.dataset.theme = 'light'
 })

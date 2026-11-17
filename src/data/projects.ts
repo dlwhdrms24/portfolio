@@ -15,7 +15,8 @@ export const projects: Project[] = [
     demoAccess: { url: 'https://mymedilens.com/', username: 'testUser', password: 'password' },
     personalDemo: {
       url: 'https://jong.3geun.com/medilens-demo/',
-      description: '팀 서비스·DB와 분리해 약봉투 인식과 복약 일정 흐름을 개인적으로 다시 구현한 데모입니다.',
+      description:
+        '팀 서비스·DB와 분리해 약봉투 인식과 복약 일정 흐름을 개인적으로 다시 구현한 데모입니다.',
     },
     cover: {
       src: '/images/projects/medilens/screens/scan-analysis-redacted.png',
