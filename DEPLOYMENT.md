@@ -16,7 +16,7 @@ df -h
 free -h
 ```
 
-호스트 Nginx인지 Docker 프록시인지, `jong.3geun.com`의 기존 server block, 인증서와 키 경로, 프록시 네트워크를 확인합니다. 호스트 Nginx이면 `sudo nginx -T`로 확인할 수 있습니다. 인증서를 재발급하거나 DNS를 바꾸지 않습니다. 다른 컨테이너의 중지·삭제, Docker 전역 prune, 기존 프록시 설정 전체 덮어쓰기를 수행하지 않습니다.
+호스트 Nginx인지 Docker 프록시인지, `3geun.com`의 기존 server block, 인증서와 키 경로, 프록시 네트워크를 확인합니다. 호스트 Nginx이면 `sudo nginx -T`로 확인할 수 있습니다. 인증서를 재발급하거나 DNS를 바꾸지 않습니다. 다른 컨테이너의 중지·삭제, Docker 전역 prune, 기존 프록시 설정 전체 덮어쓰기를 수행하지 않습니다.
 
 ## 2. 개발 PC 또는 CI에서 이미지 빌드
 
@@ -55,7 +55,7 @@ docker compose ps
 curl -f http://127.0.0.1:18080/healthz
 ```
 
-기존 `jong.3geun.com` HTTPS server block의 해당 경로를 아래 upstream으로 연결합니다. 다음은 location 예시이며 인증서·listen·다른 서비스 설정은 기존 값을 유지합니다. 먼저 기존 설정을 백업하고 기존 경로와 충돌하는지 확인하세요.
+기존 `3geun.com` HTTPS server block의 해당 경로를 아래 upstream으로 연결합니다. 다음은 location 예시이며 인증서·listen·다른 서비스 설정은 기존 값을 유지합니다. 먼저 기존 설정을 백업하고 기존 경로와 충돌하는지 확인하세요.
 
 ```nginx
 location / {
@@ -108,11 +108,11 @@ HTML 응답에는 `Cache-Control: no-cache`, 해시가 있는 `/assets/` 번들�
 프록시 연결 후 실행합니다. `-k` 등 인증서 검증을 끄는 옵션은 사용하지 않습니다.
 
 ```sh
-curl -I http://jong.3geun.com
-curl -I https://jong.3geun.com
-curl -I https://jong.3geun.com/resume
-curl -I https://jong.3geun.com/projects
-openssl s_client -connect jong.3geun.com:443 -servername jong.3geun.com -verify_hostname jong.3geun.com -verify_return_error </dev/null
+curl -I http://3geun.com
+curl -I https://3geun.com
+curl -I https://3geun.com/resume
+curl -I https://3geun.com/projects
+openssl s_client -connect 3geun.com:443 -servername 3geun.com -verify_hostname 3geun.com -verify_return_error </dev/null
 ```
 
 ## 월페이퍼 스튜디오 배포
@@ -131,7 +131,7 @@ curl -fsS -o /dev/null http://127.0.0.1:14179/bing-wallpaper/
 curl -fsS http://127.0.0.1:14179/bing-wallpaper/api/wallpaper
 ```
 
-기존 `jong.3geun.com` HTTPS server block에 아래 두 `location`을 추가합니다. `proxy_pass`의 포트 뒤에 `/`를 붙이지 않아 `/bing-wallpaper/` 경로를 컨테이너까지 전달합니다.
+기존 `3geun.com` HTTPS server block에 아래 두 `location`을 추가합니다. `proxy_pass`의 포트 뒤에 `/`를 붙이지 않아 `/bing-wallpaper/` 경로를 컨테이너까지 전달합니다.
 
 ```nginx
 location = /bing-wallpaper {

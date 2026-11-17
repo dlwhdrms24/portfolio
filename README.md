@@ -1,16 +1,16 @@
 # 개발자 포트폴리오
 
-`https://jong.3geun.com`에서 제공할 한국어 개인 개발자 포트폴리오입니다. 자기소개와 이력서 요약, 전체 이력서, 프로젝트 목록·상세 페이지를 제공합니다. 실제 개인 콘텐츠는 비어 있으며 임의의 경력·기술·연락처·프로젝트를 넣지 않았습니다. `Backend Developer`는 직무 UI 기본값입니다.
+`https://3geun.com`에서 제공할 한국어 개인 개발자 포트폴리오입니다. 자기소개와 이력서 요약, 전체 이력서, 프로젝트 목록·상세 페이지를 제공합니다. 실제 개인 콘텐츠는 비어 있으며 임의의 경력·기술·연락처·프로젝트를 넣지 않았습니다. `Backend Developer`는 직무 UI 기본값입니다.
 
 React 19, TypeScript 6, Vite 8, Tailwind CSS 4, React Router 7, Lucide React를 사용합니다. 테스트는 Vitest·React Testing Library, 운영은 Nginx 정적 파일 + Docker Compose입니다. 설치 버전은 `package.json`에 고정하고 `package-lock.json`으로 재현합니다. Node.js 22.12 이상이 필요합니다. Node 요구사항과 Tailwind 설정은 [Vite 공식 문서](https://vite.dev/guide/)와 [Tailwind 공식 문서](https://tailwindcss.com/docs/installation/using-vite)를 확인했습니다.
 
 ## 아키텍처
 
-`jong.3geun.com` 한 도메인 아래에서 세 개의 독립 앱이 경로별로 서비스됩니다. 각 앱은 별도 저장소·별도 Docker Compose 프로젝트로 관리하며, 호스트 Nginx가 기존 HTTPS 인증서로 TLS를 종료한 뒤 경로에 따라 루프백 포트로 전달합니다.
+`3geun.com` 한 도메인 아래에서 세 개의 독립 앱이 경로별로 서비스됩니다. 각 앱은 별도 저장소·별도 Docker Compose 프로젝트로 관리하며, 호스트 Nginx가 기존 HTTPS 인증서로 TLS를 종료한 뒤 경로에 따라 루프백 포트로 전달합니다.
 
 ```mermaid
 flowchart LR
-    U["방문자 브라우저"] -->|HTTPS| N["호스트 Nginx<br/>jong.3geun.com"]
+    U["방문자 브라우저"] -->|HTTPS| N["호스트 Nginx<br/>3geun.com"]
     N -->|"/"| P["포트폴리오 (이 저장소)<br/>Nginx 정적 파일<br/>127.0.0.1:18080"]
     N -->|"/bing-wallpaper/"| W["월페이퍼 스튜디오<br/>Node 프록시 서버<br/>127.0.0.1:14179"]
     N -->|"/medilens-demo/"| M["MediLens 체험 데모<br/>Nginx 정적 파일<br/>127.0.0.1:18090"]

@@ -1,7 +1,7 @@
 import { projects } from '../data/projects'
 
-export const siteUrl = 'https://jong.3geun.com'
-export const siteName = 'J.3geun'
+export const siteUrl = 'https://3geun.com'
+export const siteName = '3geun'
 export function getMetadata(rawPath: string) {
   const path = rawPath.replace(/\/+$/, '') || '/'
   const project = projects.find((item) => path === `/projects/${item.slug}`)

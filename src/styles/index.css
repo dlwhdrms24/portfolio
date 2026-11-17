@@ -20,7 +20,7 @@
   --muted: #5e6a61;
   --subtle: #5b665e;
   --line: #e4e7df;
-  /* J.3geun 워드마크 색: 진한 초록(주색) · 갈색 · 연두 · 앰버 */
+  /* 3geun 워드마크 색: 진한 초록(주색) · 갈색 · 연두 · 앰버 */
   --accent: #24543a;
   --accent-hover: #1a3f2b;
   --accent-soft: #e8f1e2;
@@ -327,17 +327,17 @@ section[id] {
   font-size: inherit;
   color: var(--text);
 }
-.hero h1.hero-wordmark > .wm-j {
-  color: var(--brown);
-}
-.hero h1.hero-wordmark > .wm-period {
-  color: var(--leaf);
-}
-.hero h1.hero-wordmark > .wm-3 {
+.hero h1.hero-wordmark > .wm-amber {
   color: var(--amber);
 }
-.hero h1.hero-wordmark > .wm-geun {
+.hero h1.hero-wordmark > .wm-green {
   color: var(--accent);
+}
+.hero h1.hero-wordmark > .wm-leaf {
+  color: var(--leaf);
+}
+.hero h1.hero-wordmark > .wm-brown {
+  color: var(--brown);
 }
 .hero-tagline {
   margin-top: 14px;

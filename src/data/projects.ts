@@ -14,7 +14,7 @@ export const projects: Project[] = [
     featured: true,
     demoAccess: { url: 'https://mymedilens.com/', username: 'testUser', password: 'password' },
     personalDemo: {
-      url: 'https://jong.3geun.com/medilens-demo/',
+      url: 'https://3geun.com/medilens-demo/',
       description:
         '팀 서비스·DB와 분리해 약봉투 인식과 복약 일정 흐름을 개인적으로 다시 구현한 데모입니다.',
     },
@@ -251,7 +251,7 @@ export const projects: Project[] = [
       alt: 'Bing 사진 미리보기와 해상도 선택, JPG 다운로드 버튼이 있는 배경화면 다운로더 화면',
       caption: 'Bing 배경화면 미리보기와 JPG 다운로드',
     },
-    demoUrl: 'https://jong.3geun.com/bing-wallpaper/',
+    demoUrl: 'https://3geun.com/bing-wallpaper/',
     features: [
       {
         title: '사진 찾기',

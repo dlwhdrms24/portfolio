@@ -56,8 +56,8 @@ const publishedCertifications = [...resume.certifications]
 describe('빈 콘텐츠와 라우팅', () => {
   it('프로필과 사진을 렌더링하고 비어 있는 링크를 숨긴다', () => {
     visit()
-    expect(screen.getByRole('heading', { level: 1, name: 'J.3geun' })).toBeInTheDocument()
-    expect(document.title).toBe('J.3geun')
+    expect(screen.getByRole('heading', { level: 1, name: '3geun' })).toBeInTheDocument()
+    expect(document.title).toBe('3geun')
     expect(screen.getByRole('heading', { name: '이종근' })).toBeInTheDocument()
     expect(screen.getByRole('img', { name: '이종근 프로필 사진' })).toHaveAttribute(
       'src',
@@ -128,9 +128,9 @@ describe('QR 코드', () => {
     visit('/resume')
     await userEvent.click(screen.getByRole('button', { name: '주소 QR 코드 보기' }))
     const dialog = screen.getByRole('dialog', { name: '페이지 주소 QR 코드' })
-    expect(within(dialog).getByText('jong.3geun.com/resume')).toBeInTheDocument()
+    expect(within(dialog).getByText('3geun.com/resume')).toBeInTheDocument()
     expect(
-      await within(dialog).findByRole('img', { name: 'https://jong.3geun.com/resume QR 코드' }),
+      await within(dialog).findByRole('img', { name: 'https://3geun.com/resume QR 코드' }),
     ).toBeInTheDocument()
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
@@ -164,7 +164,7 @@ describe('콘텐츠 데이터 연동', () => {
     const medilens = projects.find((item) => item.slug === 'medilens')!
     const original = medilens.personalDemo
     medilens.personalDemo = {
-      url: 'https://jong.3geun.com/medilens-demo/',
+      url: 'https://3geun.com/medilens-demo/',
       description: '팀 서비스와 분리한 개인 재구현 데모',
     }
     try {
@@ -173,7 +173,7 @@ describe('콘텐츠 데이터 연동', () => {
       expect(within(section).getByText('개인 재구현')).toBeInTheDocument()
       expect(within(section).getByRole('link', { name: /체험 데모 열기/ })).toHaveAttribute(
         'href',
-        'https://jong.3geun.com/medilens-demo/',
+        'https://3geun.com/medilens-demo/',
       )
     } finally {
       medilens.personalDemo = original

@@ -20,11 +20,12 @@ export function HomePage() {
   return (
     <div className="container home-page">
       <section className="hero" aria-labelledby="hero-title">
-        <h1 id="hero-title" className="hero-wordmark" aria-label="J.3geun">
-          <span className="wm-j">J</span>
-          <span className="wm-period">.</span>
-          <span className="wm-3">3</span>
-          <span className="wm-geun">geun</span>
+        <h1 id="hero-title" className="hero-wordmark" aria-label="3geun">
+          <span className="wm-amber">3</span>
+          <span className="wm-green">g</span>
+          <span className="wm-leaf">e</span>
+          <span className="wm-brown">u</span>
+          <span className="wm-green">n</span>
         </h1>
         <p className="hero-tagline">ABOUT · RESUME · PROJECTS</p>
         <p className="hero-story">
