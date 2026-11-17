@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="버섯 모자를 쓴 J 새싹 나무 로고">
-  <rect width="200" height="200" rx="44" fill="#24543A"/>
-  <!-- 포트폴리오 J 새싹 나무 (원본보다 조금 작게, 아래로) -->
-  <g transform="translate(100 131) scale(0.58) translate(-111 -104)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="버섯 갓을 쓴 3geun 새싹 로고">
+  <!-- 3geun 네모 로고 (조금 작게, 아래로) -->
+  <rect x="30" y="64" width="140" height="134" rx="30" fill="#24543A"/>
+  <g transform="translate(100 150) scale(0.54) translate(-111 -104)">
     <g fill="#D9A066">
       <path d="M102 140 L114 140 L108 188 Z"/>
       <path d="M104 140 C110 162 128 170 152 169 C132 163 120 156 115 140 Z"/>
@@ -11,14 +11,16 @@
     <path d="M108 76 C106 46 128 26 158 22 C160 52 140 74 108 76 Z" fill="#8DCB6E"/>
     <path d="M106 74 C90 74 76 64 70 46 C90 46 104 56 106 74 Z" fill="#F2B544"/>
   </g>
-  <!-- 주황 버섯 갓 모자 (단순화한 자체 도안), 살짝 기울여 씌움 -->
-  <g transform="translate(4 2) rotate(-10 102 58) scale(0.92) translate(8.9 4.4)">
-    <path d="M48 66 C48 34 72 18 102 18 C132 18 156 34 156 66 C138 74 66 74 48 66 Z" fill="#F08A24"/>
-    <path d="M48 66 C66 74 138 74 156 66 C156 71 152 75 146 76 C118 81 86 81 58 76 C52 75 48 71 48 66 Z" fill="#C8601A"/>
-    <ellipse cx="80" cy="42" rx="11" ry="9" fill="#FFF3DC"/>
-    <ellipse cx="114" cy="31" rx="9" ry="7" fill="#FFF3DC"/>
-    <ellipse cx="134" cy="52" rx="8" ry="7" fill="#FFF3DC"/>
-    <ellipse cx="103" cy="56" rx="6" ry="5" fill="#FFF3DC"/>
-    <path d="M62 50 C64 38 74 29 86 25" fill="none" stroke="#FFB869" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <!-- 주황 버섯 갓 (자체 단순화 도안): 네모 위에 모자처럼 -->
+  <path d="M32 96 C70 87 130 87 168 96 C162 106 150 109 138 106 C114 100 86 100 62 106 C50 109 38 106 32 96 Z" fill="#D9761C"/>
+  <path d="M12 84 C12 38 52 6 100 6 C148 6 188 38 188 84 C188 95 179 100 168 96 C130 86 70 86 32 96 C21 100 12 95 12 84 Z" fill="#F39A2B"/>
+  <g fill="#F8D04A">
+    <ellipse cx="58" cy="44" rx="14" ry="12"/>
+    <ellipse cx="102" cy="24" rx="12" ry="9"/>
+    <ellipse cx="144" cy="44" rx="15" ry="12"/>
+    <ellipse cx="100" cy="64" rx="11" ry="9"/>
+    <ellipse cx="26" cy="74" rx="7" ry="10"/>
+    <ellipse cx="174" cy="74" rx="7" ry="10"/>
   </g>
+  <path d="M34 52 C42 32 60 20 78 15" fill="none" stroke="#FFC27A" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
 </svg>

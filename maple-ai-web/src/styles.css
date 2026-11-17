@@ -191,8 +191,8 @@ kbd {
 }
 .intro-logo {
   align-self: center;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(36, 84, 58, 0.18);
+  /* 버섯 갓이 네모 밖으로 나오는 모양이라 그림자는 모양을 따라가게 */
+  filter: drop-shadow(0 6px 12px rgba(36, 84, 58, 0.22));
 }
 .intro h2 {
   font-size: clamp(1.35rem, 4vw, 1.75rem);
