@@ -19,6 +19,11 @@ export function HomePage() {
           <span className="wm-3">3</span>
           <span className="wm-geun">geun</span>
         </h1>
+        <p className="hero-tagline">ABOUT · RESUME · PROJECTS</p>
+        <p className="hero-story">
+          저희 삼 형제는 이름이 모두 &lsquo;근&rsquo;으로 끝납니다. 그중 막내인 저는 세 번째 근,
+          그래서 3geun입니다.
+        </p>
       </section>
       <section className="home-section" aria-label="소개">
         <div className="section-more">
