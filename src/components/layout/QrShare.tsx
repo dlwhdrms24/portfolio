@@ -20,7 +20,7 @@ export function QrShare() {
           type: 'svg',
           margin: 1,
           errorCorrectionLevel: 'M',
-          color: { dark: '#202b3e', light: '#ffffff' },
+          color: { dark: '#1f2a23', light: '#ffffff' },
         }),
       )
       .then((markup) => active && setSvg(markup))

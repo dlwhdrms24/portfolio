@@ -1,9 +1,10 @@
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, Award, GitBranch, GraduationCap, Mail, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
-import { EmptyState } from '../components/common/UI'
-import { Education, Skills } from '../components/resume/ResumeSections'
+import { EmptyState, ExternalLink } from '../components/common/UI'
+import { Skills } from '../components/resume/ResumeSections'
+import { resume } from '../data/resume'
 import { ProjectCard } from '../components/project/ProjectCard'
 import { ProfileAvatar } from '../components/common/ProfileAvatar'
 
@@ -35,7 +36,78 @@ export function HomePage() {
             </div>
           </div>
           <div className="resume-preview-details">
-            <Education compact />
+            <ul className="highlight-list">
+              <li className="highlight-card">
+                <span className="highlight-icon tone-green">
+                  <GraduationCap size={22} aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="highlight-label">학력</h3>
+                  {resume.education.length ? (
+                    resume.education.map((entry) => (
+                      <div key={entry.id}>
+                        <p className="highlight-title">{entry.institution}</p>
+                        <p className="highlight-sub">
+                          {[entry.course, entry.period].filter(Boolean).join(' · ')}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="highlight-sub">학력 정보를 준비 중입니다.</p>
+                  )}
+                </div>
+              </li>
+              <li className="highlight-card">
+                <span className="highlight-icon tone-amber">
+                  <Award size={22} aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="highlight-label">자격증</h3>
+                  {resume.certifications.length ? (
+                    resume.certifications.map((entry) => (
+                      <div key={entry.id}>
+                        <p className="highlight-title">{entry.name}</p>
+                        <p className="highlight-sub">
+                          {[entry.issuer, entry.date].filter(Boolean).join(' · ')}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="highlight-sub">등록된 자격증이 없습니다.</p>
+                  )}
+                </div>
+              </li>
+              {(profile.email || profile.github || profile.phone) && (
+                <li className="highlight-card">
+                  <span className="highlight-icon tone-brown">
+                    <Mail size={22} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="highlight-label">연락처</h3>
+                    <div className="highlight-contacts">
+                      {profile.email && (
+                        <a href={`mailto:${profile.email}`}>
+                          <Mail size={15} aria-hidden="true" />
+                          {profile.email}
+                        </a>
+                      )}
+                      {profile.github && (
+                        <ExternalLink href={profile.github}>
+                          <GitBranch size={15} aria-hidden="true" />
+                          {profile.github.replace(/^https?:\/\//, '')}
+                        </ExternalLink>
+                      )}
+                      {profile.phone && (
+                        <a href={`tel:${profile.phone}`}>
+                          <Phone size={15} aria-hidden="true" />
+                          {profile.phone}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              )}
+            </ul>
           </div>
         </div>
       </section>

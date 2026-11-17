@@ -2,7 +2,7 @@ import type { SkillCategory } from '../types'
 
 export const skills: SkillCategory[] = [
   { name: '백엔드', skills: ['Python', 'FastAPI', 'SQLAlchemy', 'Java', 'Spring'] },
-  { name: '데이터베이스', skills: ['PostgreSQL'] },
+  { name: '데이터베이스', skills: ['PostgreSQL', 'MySQL'] },
   { name: '프런트엔드', skills: ['React', 'JavaScript', 'Vite', 'React Router'] },
   { name: '배포', skills: ['Docker', 'Nginx'] },
   {

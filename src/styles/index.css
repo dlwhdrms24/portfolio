@@ -8,21 +8,29 @@
     BlinkMacSystemFont,
     'Segoe UI',
     sans-serif;
-  color: #202b3e;
-  background: #fbfcfe;
+  color: #1f2a23;
+  background: #fbfbf8;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --bg: #fbfcfe;
+  --bg: #fbfbf8;
   --surface: #fff;
-  --soft: #f3f6fb;
-  --text: #202b3e;
-  --muted: #657185;
-  --subtle: #626f82;
-  --line: #e4e9f1;
-  --accent: #3056cc;
-  --accent-soft: #edf2ff;
-  --nav-bg: rgba(251, 252, 254, 0.94);
+  --soft: #f4f5f0;
+  --text: #1f2a23;
+  --muted: #5e6a61;
+  --subtle: #5b665e;
+  --line: #e4e7df;
+  /* J.3geun 워드마크 색: 진한 초록(주색) · 갈색 · 연두 · 앰버 */
+  --accent: #24543a;
+  --accent-hover: #1a3f2b;
+  --accent-soft: #e8f1e2;
+  --brown: #9a6738;
+  --brown-soft: #f5ece2;
+  --leaf: #8dcb6e;
+  --amber: #f2b544;
+  --amber-ink: #8f5d0c;
+  --amber-soft: #fdf2d8;
+  --nav-bg: rgba(251, 251, 248, 0.94);
   color-scheme: light;
 }
 * {
@@ -51,8 +59,8 @@ button:disabled {
   cursor: default;
 }
 ::selection {
-  background: #cbd9ff;
-  color: #162349;
+  background: var(--amber-soft);
+  color: var(--text);
 }
 :focus-visible {
   outline: 3px solid var(--accent);
@@ -143,13 +151,13 @@ section[id] {
   min-height: 46px;
 }
 .button.primary {
-  background: #3056cc;
+  background: var(--accent);
   color: #fff;
-  border-color: #3056cc;
-  box-shadow: 0 3px 6px #3056cc12;
+  border-color: var(--accent);
+  box-shadow: 0 3px 6px #24543a14;
 }
 .button.primary:hover {
-  background: #2445b1;
+  background: var(--accent-hover);
   transform: translateY(-2px);
 }
 .button.secondary {
@@ -229,7 +237,7 @@ section[id] {
   height: 2px;
   left: 0;
   right: 0;
-  background: var(--accent);
+  background: var(--amber);
 }
 .desktop-nav a:hover {
   color: var(--accent);
@@ -320,16 +328,16 @@ section[id] {
   color: var(--text);
 }
 .hero h1.hero-wordmark > .wm-j {
-  color: #9a6738;
+  color: var(--brown);
 }
 .hero h1.hero-wordmark > .wm-period {
-  color: #8dcb6e;
+  color: var(--leaf);
 }
 .hero h1.hero-wordmark > .wm-3 {
-  color: #f2b544;
+  color: var(--amber);
 }
 .hero h1.hero-wordmark > .wm-geun {
-  color: #24543a;
+  color: var(--accent);
 }
 .hero-content {
   max-width: 42rem;
@@ -464,7 +472,77 @@ section[id] {
   font-size: 11px;
 }
 .resume-preview-details {
-  padding: 6px 28px;
+  padding: 24px;
+  display: flex;
+}
+.highlight-list {
+  list-style: none;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 14px;
+  width: 100%;
+}
+.highlight-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--soft);
+}
+.highlight-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+}
+.highlight-icon.tone-green {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.highlight-icon.tone-amber {
+  background: var(--amber-soft);
+  color: var(--amber-ink);
+}
+.highlight-icon.tone-brown {
+  background: var(--brown-soft);
+  color: var(--brown);
+}
+.highlight-label {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.highlight-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.45;
+}
+.highlight-sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.6;
+}
+.highlight-contacts {
+  display: grid;
+  gap: 6px;
+}
+.highlight-contacts a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.highlight-contacts a:hover {
+  color: var(--accent);
 }
 .resume-block {
   padding: 23px 0;
@@ -665,7 +743,7 @@ main {
 }
 .resume-toc span {
   font-family: monospace;
-  color: var(--subtle);
+  color: var(--brown);
   font-size: 10px;
 }
 .resume-content > section {
@@ -763,7 +841,7 @@ main {
 }
 .entry-period {
   font-family: ui-monospace, monospace;
-  color: var(--subtle);
+  color: var(--brown);
   font-size: 10px;
   line-height: 1.8;
   margin-bottom: 7px;
@@ -860,7 +938,7 @@ main {
 .project-card:hover {
   transform: translateY(-4px);
   border-color: var(--accent);
-  box-shadow: 0 8px 24px #10235808;
+  box-shadow: 0 8px 24px #24543a0d;
 }
 .project-card-demo {
   position: relative;
@@ -1350,6 +1428,30 @@ main {
   }
 }
 @media (max-width: 680px) {
+  .resume-preview-details {
+    padding: 16px;
+  }
+  .highlight-list {
+    grid-auto-rows: auto;
+    gap: 10px;
+  }
+  .highlight-card {
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+  }
+  .highlight-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+  .highlight-title {
+    font-size: 16px;
+  }
+  .highlight-sub,
+  .highlight-contacts a {
+    font-size: 13px;
+  }
   .container {
     padding-left: 22px;
     padding-right: 22px;
@@ -1388,7 +1490,7 @@ main {
     padding: 12px 22px 16px;
     background: var(--surface);
     border-bottom: 1px solid var(--line);
-    box-shadow: 0 12px 15px #10235805;
+    box-shadow: 0 12px 15px #24543a08;
   }
   .mobile-nav a {
     padding: 13px 8px;
