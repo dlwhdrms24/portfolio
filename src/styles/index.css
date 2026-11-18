@@ -780,6 +780,10 @@ main {
 .profile-avatar.large.has-photo {
   width: 112px;
 }
+.resume-sidebar .profile-avatar.large.has-photo {
+  width: min(200px, 100%);
+  border-radius: 16px;
+}
 .profile-preview .profile-avatar.large.has-photo {
   width: min(190px, 100%);
   border-radius: 16px;
@@ -1629,23 +1633,31 @@ main {
     grid-template-columns: 1fr;
   }
   .profile-preview {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 23px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 16px 0;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--soft);
   }
   .profile-preview .profile-avatar {
-    float: right;
     width: 47px;
     height: 47px;
     margin-bottom: 0;
   }
   .profile-preview .profile-avatar.large.has-photo {
-    width: 128px;
+    width: 104px;
     height: auto;
-    margin-left: 12px;
+    flex-shrink: 0;
+    border-radius: 10px;
   }
   .profile-preview h2 {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
   }
   .profile-preview > .muted {
     margin-top: 11px;
@@ -1654,7 +1666,7 @@ main {
     margin-top: 15px;
   }
   .resume-preview-details {
-    padding: 0 22px;
+    padding: 10px 16px 16px;
   }
   .resume-block {
     padding: 20px 0;
@@ -1705,6 +1717,10 @@ main {
     float: right;
     margin: 0;
   }
+  .resume-sidebar .profile-avatar.large.has-photo {
+    width: 140px;
+    margin-left: 14px;
+  }
   .resume-sidebar h2 {
     font-size: 21px;
   }
@@ -1712,6 +1728,7 @@ main {
     font-size: 12px;
   }
   .resume-toc {
+    clear: both;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 22px;
     padding-top: 15px;
