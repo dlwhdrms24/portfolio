@@ -11,7 +11,7 @@ export const profile: Profile = {
     '저는 아직 배워야 할 것이 많은 신입 개발자이지만, 새로운 기술을 익히는 데 적극적이고 하나의 문제를 끝까지 해결하려는 자세를 가지고 있습니다. 앞으로도 꾸준히 배우고 경험을 쌓으며, 팀과 함께 성장하고 안정적인 서비스를 만드는 개발자가 되겠습니다.',
   ],
   photo: '/images/profile.jpg',
-  phone: '010-2276-8401',
+  location: '인천광역시 연수구 송도동',
   email: 'dlwhdrms24@gmail.com',
   github: 'https://github.com/dlwhdrms24',
 }

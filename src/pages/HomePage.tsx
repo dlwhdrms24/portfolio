@@ -6,13 +6,12 @@ import {
   GitBranch,
   GraduationCap,
   Mail,
-  Phone,
+  MapPin,
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { ExternalLink } from '../components/common/UI'
-import { Skills } from '../components/resume/ResumeSections'
 import { resume } from '../data/resume'
 import { ProfileAvatar } from '../components/common/ProfileAvatar'
 
@@ -29,8 +28,9 @@ export function HomePage() {
         </h1>
         <p className="hero-tagline">ABOUT · RESUME · PROJECTS</p>
         <p className="hero-story">
-          <span>저희 삼 형제는 이름이 모두 &lsquo;근&rsquo;으로 끝납니다.</span>{' '}
-          <span>그중 막내인 저는 세 번째 근,</span> <span>그래서 &lsquo;3geun&rsquo;입니다.</span>
+          <span>저희 삼 형제는 이름이 모두 &lsquo;근&rsquo;으로 끝납니다.</span>
+          <span>그중 막내인 저는 세 번째 근</span>
+          <span>&lsquo;3geun&rsquo;입니다.</span>
         </p>
       </section>
       <section className="home-section" aria-label="소개">
@@ -42,11 +42,8 @@ export function HomePage() {
         </div>
         <div className="resume-preview">
           <div className="profile-preview">
-            <ProfileAvatar />
+            <ProfileAvatar large />
             <h2>{profile.name || '이름을 입력해 주세요'}</h2>
-            <div className="profile-skills">
-              <Skills compact />
-            </div>
           </div>
           <div className="resume-preview-details">
             <ul className="highlight-list">
@@ -60,9 +57,8 @@ export function HomePage() {
                     resume.education.map((entry) => (
                       <div key={entry.id}>
                         <p className="highlight-title">{entry.institution}</p>
-                        <p className="highlight-sub">
-                          {[entry.course, entry.period].filter(Boolean).join(' · ')}
-                        </p>
+                        {entry.course && <p className="highlight-sub">{entry.course}</p>}
+                        <p className="highlight-sub education-period">{entry.period}</p>
                       </div>
                     ))
                   ) : (
@@ -90,7 +86,7 @@ export function HomePage() {
                   )}
                 </div>
               </li>
-              {(profile.email || profile.github || profile.phone) && (
+              {(profile.email || profile.github || profile.location) && (
                 <li className="highlight-card">
                   <span className="highlight-icon tone-brown">
                     <Mail size={22} aria-hidden="true" />
@@ -110,11 +106,11 @@ export function HomePage() {
                           {profile.github.replace(/^https?:\/\//, '')}
                         </ExternalLink>
                       )}
-                      {profile.phone && (
-                        <a href={`tel:${profile.phone}`}>
-                          <Phone size={15} aria-hidden="true" />
-                          {profile.phone}
-                        </a>
+                      {profile.location && (
+                        <p className="highlight-location">
+                          <MapPin size={15} aria-hidden="true" />
+                          {profile.location}
+                        </p>
                       )}
                     </div>
                   </div>

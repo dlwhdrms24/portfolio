@@ -5,7 +5,6 @@ export const projects: Project[] = [
     slug: 'medilens',
     name: 'MediLens',
     summary: '처방전 이미지에서 복약 정보를 추출하고 일정·기록·가족 공유를 관리하는 서비스',
-    period: '약 6개월',
     type: '팀 프로젝트',
     role: '서버·DB 중심 개발 참여',
     purpose:
@@ -26,7 +25,7 @@ export const projects: Project[] = [
     },
     spotlight: {
       description:
-        '약 6개월간 팀으로 개발하며 서버와 DB 영역을 중심으로 참여했습니다. 아래는 팀 결과물에서 확인할 수 있는 서버·DB 설계입니다.',
+        '팀 프로젝트에서 서버와 DB 영역을 중심으로 참여했습니다. 아래는 팀 결과물에서 확인할 수 있는 서버·DB 설계입니다.',
       topics: [
         {
           title: '처방전 분석 작업과 상태 조회',
@@ -152,11 +151,10 @@ export const projects: Project[] = [
     slug: 'create-problem-ai',
     name: 'Create Problem AI',
     summary: 'AI 문제 생성부터 웹 코드 실행과 테스트 결과 확인까지 연결한 React 프로토타입',
-    period: '2~3일',
     type: '개인 프로젝트',
     role: '화면 구현 및 외부 API 연동',
     purpose:
-      '원하는 주제의 알고리즘 문제를 생성하고 웹에서 코드를 작성·실행한 뒤 테스트 케이스별 결과를 확인하는 흐름을 2~3일 동안 구현한 개인 프로젝트입니다.',
+      '원하는 주제의 알고리즘 문제를 생성하고 웹에서 코드를 작성·실행한 뒤 테스트 케이스별 결과를 확인하는 흐름을 구현한 개인 프로젝트입니다.',
     technologies: ['React', 'JavaScript', 'Vite', 'React Router', 'Gemini API', 'JDoodle API'],
     featured: true,
     cover: {
@@ -240,7 +238,6 @@ export const projects: Project[] = [
     name: '메이플 AI 도우미',
     summary:
       '집 PC의 로컬 LLM과 RAG로 메이플스토리 질문에 답하고, Nexon Open API로 캐릭터를 조회하는 AI 서비스',
-    period: '1일',
     type: '개인 프로젝트',
     role: '데이터 수집·검색·LLM 파이프라인·서빙·웹 화면 전체 구현',
     purpose:
@@ -258,7 +255,8 @@ export const projects: Project[] = [
       'Docker',
     ],
     featured: true,
-    liveUrl: 'https://3geun.com/maple-ai/',
+    accessNote:
+      '데모는 면접이나 시연 일정에 맞춰 열고 있습니다. 이용을 원하시면 이메일로 문의해 주세요.',
     cover: {
       src: '/images/projects/maple-ai/home.png',
       alt: '메이플 AI 도우미 첫 화면: 버섯 갓을 쓴 로고, 예시 질문 버튼, 질문 입력창',
@@ -288,12 +286,14 @@ export const projects: Project[] = [
     ],
     architecture: {
       description:
-        '브라우저 요청은 VPS의 Nginx를 거쳐 Tailscale로 집 PC에 전달됩니다. PC의 LangGraph가 질문을 분류한 뒤 캐릭터 조회와 하이브리드 검색을 거쳐 Qwen3 8B로 답을 만듭니다. VPS는 PC의 8000번 포트에만 접근하도록 Tailscale ACL로 제한했습니다.',
+        '시연 환경은 Ubuntu VPS와 Windows PC로 나뉩니다. VPS는 HTTPS와 React 화면을 제공하고, Windows PC는 FastAPI, 문서 검색, Ollama 추론을 맡습니다. RTX 3070 Ti 8GB에서 질문 임베딩과 답변 생성을 함께 처리할 수 있도록 모델과 메모리 설정을 조정했습니다.',
       dataFlow: [
-        '질문 분류: Qwen3 8B가 JSON으로 의도·캐릭터명·검색어를 정하고, 은어(스포·터지다)는 사전으로 공식 용어로 바꿉니다.',
-        '캐릭터 조회: Nexon Open API 결과를 하루 캐시하고, 248KB 장비 응답을 3KB 요약으로 줄입니다.',
-        '검색: bge-m3 벡터와 Kiwi 형태소 BM25를 Qdrant에서 RRF로 합칩니다 (25문항 hit@5 96%, MRR 0.930).',
-        '답변: 작은 조각으로 찾고 섹션 전체를 넣으며, 표는 행마다 "키: 값"으로 펼칩니다 (17문항 답변 정확도 94%, 응답 중앙값 1.4초).',
+        '접속과 스트리밍. 호스트 Nginx는 화면 요청을 VPS의 React 컨테이너로, API 요청은 Tailscale을 통해 집 PC의 FastAPI로 보냅니다. Ollama와 Qdrant는 PC 내부에서 사용합니다. FastAPI가 보내는 처리 상태, 출처, 답변 조각은 SSE로 전달되며, React는 POST 응답을 스트림으로 읽어 화면을 갱신합니다.',
+        '문서 수집과 인덱싱. 선별한 나무위키 문서와 넥슨 공식 공지를 출처 URL과 날짜가 포함된 Markdown으로 정리합니다. 표를 유지한 채 제목과 섹션 기준으로 문서를 나누고, 내용이 바뀐 문서만 다시 인덱싱합니다. 초기 수집에서는 문서 95개를 3,344개 청크로 적재했습니다.',
+        '질문 분기. LangGraph는 질문을 게임 지식, 캐릭터 조회, 복합 질문, 일반 대화로 분류합니다. 캐릭터명과 검색어를 구조화하고 스포·터지다 같은 은어를 검색에 쓸 표현으로 바꿉니다. 일부 슬래시 명령과 닉네임 조회는 FastAPI에서 데이터 카드로 바로 반환합니다.',
+        '실시간 조회와 문서 검색. 캐릭터 정보는 Nexon Open API에서 가져와 캐시하고, 필요한 장비 필드만 답변에 전달합니다. 게임 지식은 bge-m3 의미 검색과 Kiwi 형태소 기반 BM25로 찾습니다. Qdrant는 두 결과의 순위를 RRF로 합칩니다. 복합 질문은 캐릭터 데이터와 문서 근거를 함께 사용합니다.',
+        '답변 구성과 검증. 찾은 청크의 섹션을 다시 읽어 문맥을 확보하고, 확률표는 관련 행을 항목과 값의 쌍으로 펼칩니다. Ollama의 Qwen3 8B가 근거와 함께 답을 생성하며, 코드가 답변의 숫자를 제공 자료와 대조합니다. 근거 확인에 실패하면 대체 응답을 보냅니다.',
+        '부하 제어와 평가. 동시 GPU 생성은 한 건으로 제한하고 대기열이 차면 HTTP 429를 반환합니다. 로컬 평가에서 검색 25문항은 hit@5 96%, MRR 0.930이었고, 별도 전체 흐름 평가 17문항은 답변 정확도 94%, 응답 중앙값 1.4초였습니다.',
       ],
     },
     problems: [
@@ -341,11 +341,10 @@ export const projects: Project[] = [
     slug: 'bing-wallpaper',
     name: 'Bing Wallpaper Downloader',
     summary: 'Bing 배경화면 링크에서 사진을 찾아 원하는 해상도로 저장하는 웹 도구',
-    period: '1일',
     type: '개인 프로젝트',
     role: '웹 화면 및 다운로드 API 구현',
     purpose:
-      'Bing에서 마음에 드는 사진을 찾고도 원하는 해상도로 저장하기가 불편했습니다. 사진 링크를 붙여 넣거나 오늘의 사진을 불러온 뒤, 화면 크기에 맞는 JPG로 저장할 수 있는 도구를 하루 만에 만들었습니다.',
+      'Bing에서 마음에 드는 사진을 찾고도 원하는 해상도로 저장하기가 불편했습니다. 사진 링크를 붙여 넣거나 오늘의 사진을 불러온 뒤, 화면 크기에 맞는 JPG로 저장할 수 있는 도구를 만들었습니다.',
     technologies: ['HTML', 'CSS', 'JavaScript', 'Node.js 22', 'Docker', 'Nginx'],
     featured: true,
     cover: {

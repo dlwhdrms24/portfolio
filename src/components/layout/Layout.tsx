@@ -126,7 +126,6 @@ export function Layout() {
             </p>
           </div>
           <div className="footer-links">
-            {profile.phone && <a href={`tel:${profile.phone}`}>{profile.phone}</a>}
             {profile.github && <ExternalLink href={profile.github}>GitHub</ExternalLink>}
             {profile.email && (
               <a href={`mailto:${profile.email}`}>

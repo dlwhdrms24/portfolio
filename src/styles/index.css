@@ -597,7 +597,8 @@ section[id] {
   display: grid;
   gap: 6px;
 }
-.highlight-contacts a {
+.highlight-contacts a,
+.highlight-location {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -779,6 +780,10 @@ main {
 .profile-avatar.large.has-photo {
   width: 112px;
 }
+.profile-preview .profile-avatar.large.has-photo {
+  width: min(190px, 100%);
+  border-radius: 16px;
+}
 .profile-avatar.has-photo img {
   display: block;
   width: 100%;
@@ -910,6 +915,12 @@ main {
   line-height: 1.8;
   margin-bottom: 7px;
 }
+.education-period {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+}
 .timeline h4,
 .timeline h3,
 .resume-entry h4,
@@ -934,9 +945,12 @@ main {
 .resume-entry + .resume-entry {
   margin-top: 22px;
 }
-.resume-entry > p {
+.resume-entry > p:not(.education-period) {
   font-size: 12px;
   line-height: 1.9;
+}
+.resume-entry > .education-period {
+  margin-bottom: 7px;
 }
 .project-summary-list {
   list-style: none;
@@ -981,8 +995,9 @@ main {
 .list-toolbar h2 span {
   margin-left: 8px;
   color: var(--accent);
-  font-family: monospace;
-  font-size: 11px;
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 .project-grid {
   display: grid;
@@ -1163,16 +1178,6 @@ main {
 .feature-list {
   display: grid;
   gap: 26px;
-}
-.project-spotlight-badge {
-  display: inline-block;
-  margin-inline-end: 10px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 700;
 }
 .project-demo-video {
   display: block;
@@ -1527,8 +1532,9 @@ main {
   .highlight-title {
     font-size: 16px;
   }
-  .highlight-sub,
-  .highlight-contacts a {
+  .highlight-sub:not(.education-period),
+  .highlight-contacts a,
+  .highlight-location {
     font-size: 13px;
   }
   .container {
@@ -1633,8 +1639,8 @@ main {
     height: 47px;
     margin-bottom: 0;
   }
-  .profile-preview .profile-avatar.has-photo {
-    width: 68px;
+  .profile-preview .profile-avatar.large.has-photo {
+    width: 128px;
     height: auto;
     margin-left: 12px;
   }

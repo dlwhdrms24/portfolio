@@ -1,7 +1,7 @@
-import { Download, GitBranch, Mail, MapPin, Phone } from 'lucide-react'
+import { Download, GitBranch, Mail, MapPin } from 'lucide-react'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
-import { Certifications, Education } from '../components/resume/ResumeSections'
+import { Certifications, Education, Skills } from '../components/resume/ResumeSections'
 import { EmptyState, ExternalLink, SectionHeading } from '../components/common/UI'
 import { Link } from 'react-router-dom'
 import { ProfileAvatar } from '../components/common/ProfileAvatar'
@@ -31,6 +31,7 @@ export function ResumePage() {
           <nav aria-label="이력서 목차" className="resume-toc">
             {[
               ['about', '자기소개'],
+              ['skills', '기술 스택'],
               ['education', '학력 · 자격증'],
               ['project-summary', '프로젝트'],
               ['contact', '연락처'],
@@ -54,6 +55,9 @@ export function ResumePage() {
             ) : (
               <p className="placeholder-line">자기소개를 준비 중입니다.</p>
             )}
+          </section>
+          <section id="skills">
+            <Skills />
           </section>
           <section id="education">
             <Education />
@@ -88,14 +92,8 @@ export function ResumePage() {
           </section>
           <section id="contact">
             <SectionHeading title="연락처" />
-            {profile.github || profile.email || profile.phone ? (
+            {profile.github || profile.email ? (
               <div className="contact-links">
-                {profile.phone && (
-                  <a href={`tel:${profile.phone}`}>
-                    <Phone size={18} aria-hidden="true" />
-                    {profile.phone}
-                  </a>
-                )}
                 {profile.github && (
                   <ExternalLink href={profile.github}>
                     <GitBranch size={18} />

@@ -20,7 +20,6 @@ const project: Project = {
   slug: 'test-only',
   name: '테스트 전용 프로젝트',
   summary: '데이터 렌더링 검증용',
-  period: '테스트 기간',
   type: '테스트',
   role: '테스트 역할',
   teamSize: 1,
@@ -171,7 +170,7 @@ describe('콘텐츠 데이터 연동', () => {
       visit('/projects/medilens')
       const section = screen.getByRole('region', { name: '로그인 없이 체험하기' })
       expect(within(section).getByText('개인 재구현')).toBeInTheDocument()
-      expect(within(section).getByRole('link', { name: /체험 데모 열기/ })).toHaveAttribute(
+      expect(within(section).getByRole('link', { name: /사이트 바로가기/ })).toHaveAttribute(
         'href',
         'https://3geun.com/medilens-demo/',
       )
@@ -179,23 +178,20 @@ describe('콘텐츠 데이터 연동', () => {
       medilens.personalDemo = original
     }
   })
-  it('운영 사이트(liveUrl)가 있는 카드는 소개 페이지로 가고, 사이트 바로가기를 따로 둔다', () => {
+  it('메이플 AI 카드는 프로젝트 소개로 연결한다', () => {
     visit('/projects')
     const card = screen.getByRole('heading', { name: /메이플 AI 도우미/ }).closest('article')!
     expect(within(card).getByRole('link', { name: /메이플 AI 도우미/ })).toHaveAttribute(
       'href',
       '/projects/maple-ai',
     )
-    expect(within(card).getByRole('link', { name: /사이트 바로가기/ })).toHaveAttribute(
-      'href',
-      'https://3geun.com/maple-ai/',
-    )
+    expect(within(card).queryByRole('link', { name: /사이트 바로가기/ })).not.toBeInTheDocument()
   })
-  it('운영 사이트가 있는 상세 페이지는 상단에 사이트 바로가기를 표시한다', () => {
+  it('메이플 AI 상세에서는 이메일로 이용을 문의할 수 있다', () => {
     visit('/projects/maple-ai')
-    expect(screen.getByRole('link', { name: /사이트 바로가기/ })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: /이메일로 문의하기/ })).toHaveAttribute(
       'href',
-      'https://3geun.com/maple-ai/',
+      expect.stringMatching(/^mailto:.*\?subject=/),
     )
   })
   it('실제 서비스 화면은 새 탭 링크 없이 캐러셀로 넘겨 본다', async () => {
@@ -277,8 +273,14 @@ describe('콘텐츠 데이터 연동', () => {
       date: '테스트 날짜',
     })
     visit('/resume')
-    expect(screen.queryByText('테스트 분류')).not.toBeInTheDocument()
-    for (const text of ['테스트 이름', '테스트 소개 문단', '테스트 교육', '테스트 자격'])
+    for (const text of [
+      '테스트 이름',
+      '테스트 소개 문단',
+      '테스트 분류',
+      '테스트 기술',
+      '테스트 교육',
+      '테스트 자격',
+    ])
       expect(screen.getByText(text)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /PDF 다운로드/ })).toHaveAttribute(
       'href',

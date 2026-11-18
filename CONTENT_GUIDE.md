@@ -63,7 +63,6 @@ export const projects: Project[] = [
     slug: 'unique-project-slug', // 소문자 영문·숫자와 단일 하이픈, 중복 금지
     name: '',
     summary: '', // 카드와 메타 설명에 사용할 짧은 소개
-    period: '',
     type: '', // 개인 / 팀 등 실제 프로젝트 유형
     role: '',
     teamSize: 1, // 실제 인원, 모르면 필드를 생략

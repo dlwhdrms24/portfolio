@@ -75,7 +75,7 @@ export function Education({ compact = false }: { compact?: boolean }) {
       {resume.education.length ? (
         resume.education.map((entry) => (
           <div className="resume-entry" key={entry.id}>
-            <p className="entry-period">{entry.period}</p>
+            <p className="education-period">{entry.period}</p>
             <ItemHeading>{entry.institution}</ItemHeading>
             {entry.course && <p>{entry.course}</p>}
             {entry.description && <p className="muted">{entry.description}</p>}

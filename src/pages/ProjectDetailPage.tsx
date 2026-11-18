@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { projects } from '../data/projects'
+import { profile } from '../data/profile'
 import { ExternalLink, SectionHeading, Tags } from '../components/common/UI'
 import { ScreenshotCarousel } from '../components/project/ScreenshotCarousel'
 import { NotFoundPage } from './NotFoundPage'
@@ -18,6 +19,7 @@ export function ProjectDetailPage() {
   const { slug } = useParams()
   const project = projects.find((item) => item.slug === slug)
   if (!project) return <NotFoundPage />
+  const siteUrl = project.demoUrl ?? project.liveUrl
   return (
     <div className="container inner-page detail-page">
       <Link className="text-link back-link" to="/projects">
@@ -32,17 +34,28 @@ export function ProjectDetailPage() {
           </h1>
           <p>{project.summary}</p>
         </div>
-        {project.demoUrl && (
-          <a href={project.demoUrl} className="button primary">
-            직접 써보기 <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
-        )}
-        {project.liveUrl && (
-          <a href={project.liveUrl} className="button primary">
+        {siteUrl && (
+          <a href={siteUrl} className="button primary">
             사이트 바로가기 <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         )}
       </div>
+      {project.accessNote && (
+        <section className="project-personal-demo" aria-labelledby="project-access-title">
+          <div>
+            <h2 id="project-access-title">데모 이용 안내</h2>
+            <p>{project.accessNote}</p>
+          </div>
+          {profile.email && (
+            <a
+              href={`mailto:${profile.email}?subject=${encodeURIComponent(`${project.name} 이용 문의`)}`}
+              className="button primary"
+            >
+              이메일로 문의하기
+            </a>
+          )}
+        </section>
+      )}
       {project.personalDemo && (
         <section className="project-personal-demo" aria-labelledby="project-personal-demo-title">
           <div>
@@ -51,16 +64,16 @@ export function ProjectDetailPage() {
             <p>{project.personalDemo.description}</p>
           </div>
           <a href={project.personalDemo.url} className="button primary">
-            체험 데모 열기 <ArrowUpRight size={16} aria-hidden="true" />
+            사이트 바로가기 <ArrowUpRight size={16} aria-hidden="true" />
           </a>
         </section>
       )}
       {project.demoAccess && (
         <section className="project-demo-access" aria-labelledby="project-demo-access-title">
           <div>
-            <h2 id="project-demo-access-title">서비스 체험</h2>
+            <h2 id="project-demo-access-title">팀 프로젝트 사이트</h2>
             <ExternalLink href={project.demoAccess.url} className="button primary">
-              {project.name} 바로가기
+              사이트 바로가기
             </ExternalLink>
           </div>
           <dl aria-label="테스트 계정">
@@ -81,10 +94,8 @@ export function ProjectDetailPage() {
       )}
       <div className="project-facts">
         <div>
-          <span>개발 기간</span>
-          <strong>
-            {project.period} · {project.type}
-          </strong>
+          <span>프로젝트 유형</span>
+          <strong>{project.type}</strong>
         </div>
         <div>
           <span>담당 역할</span>
